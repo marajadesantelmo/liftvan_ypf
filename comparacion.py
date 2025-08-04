@@ -172,10 +172,21 @@ with pd.ExcelWriter('price_comparison_report.xlsx', engine='openpyxl') as writer
     fcl.to_excel(writer, sheet_name='FCL Data', index=False)
     silver.to_excel(writer, sheet_name='Silver Data', index=False)
 
+# Save each sheet as CSV in data folder
+comparison_df.to_csv('data/price_comparison.csv', index=False)
+no_matches_df.to_csv('data/no_matches.csv', index=False)
+summary_df = pd.DataFrame([summary_stats]).T
+summary_df.columns = ['Value']
+summary_df.to_csv('data/summary_statistics.csv')
+airesds.to_csv('data/airesds_data.csv', index=False)
+fcl.to_csv('data/fcl_data.csv', index=False)
+silver.to_csv('data/silver_data.csv', index=False)
+
 print("Price Comparison Report Generated!")
 print(f"Total destinations compared: {len(comparison_df)}")
 print(f"Destinations with no matches: {len(no_matches_df)}")
 print(f"Report saved as 'price_comparison_report.xlsx'")
+print("CSV files saved in 'data' folder")
 
 # Display top 10 biggest price differences
 print("\nTop 10 destinations with biggest price differences (20' containers):")
