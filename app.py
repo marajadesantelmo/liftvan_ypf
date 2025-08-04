@@ -410,10 +410,4 @@ with tab5:
         ]
         st.dataframe(summary_display, use_container_width=True)
 
-# Footer
-st.markdown("---")
-st.markdown("**Dashboard de Comparación de Precios Marítimos** | Generado automáticamente desde los datos de comparacion.py")
-
-
-
 
