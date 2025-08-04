@@ -107,7 +107,8 @@ with tab2:
     st.header("Comparación de Precios")
 
     # Buscador por destino
-    search_destino = st.text_input("Buscar destino para comparar precios:", "")
+    destinos_options = comparison_df['destino'].dropna().unique().tolist()
+    search_destino = st.selectbox("Seleccionar destino para comparar precios:", [""] + sorted(destinos_options))
     if search_destino:
         search_results = comparison_df[comparison_df['destino'].str.contains(search_destino, case=False, na=False)]
         if not search_results.empty:
