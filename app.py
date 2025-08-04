@@ -113,15 +113,15 @@ if not filtered_df.empty:
 
 # Crear tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 Resumen Ejecutivo", 
-    "💰 Comparación de Precios", 
-    "📈 Análisis por Proveedor", 
-    "🗺️ Destinos sin Coincidencias",
-    "📋 Datos Detallados"
+    "Resumen", 
+    "Comparación de Precios", 
+    "Análisis por Proveedor", 
+    "Destinos sin Coincidencias",
+    "Datos Detallados"
 ])
 
 with tab1:
-    st.header("📊 Resumen Ejecutivo")
+    st.header("Resumen")
     
     # Métricas principales
     col1, col2, col3, col4 = st.columns(4)
@@ -177,8 +177,18 @@ with tab1:
             st.plotly_chart(fig_provider_40, use_container_width=True)
 
 with tab2:
-    st.header("💰 Comparación de Precios")
-    
+    st.header("Comparación de Precios")
+
+    # Buscador por destino
+    search_destino = st.text_input("Buscar destino para comparar precios:", "")
+    if search_destino:
+        search_results = filtered_df[filtered_df['destino'].str.contains(search_destino, case=False, na=False)]
+        if not search_results.empty:
+            st.subheader(f"Resultados para: {search_destino}")
+            st.dataframe(search_results, use_container_width=True)
+        else:
+            st.info("No se encontraron destinos que coincidan con la búsqueda.")
+
     if not filtered_df.empty:
         # Top 10 diferencias más grandes
         st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
@@ -200,7 +210,6 @@ with tab2:
             ].round(2)
             top_diff_40.columns = ['Destino', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
             st.dataframe(top_diff_40, use_container_width=True)
-        
         # Gráfico de dispersión de precios
         st.subheader("Análisis de Dispersión de Precios")
         
@@ -255,7 +264,7 @@ with tab2:
         st.warning("No hay datos que mostrar con los filtros aplicados.")
 
 with tab3:
-    st.header("📈 Análisis por Proveedor")
+    st.header("Análisis por Proveedor")
     
     if not comparison_df.empty:
         # Comparación de precios promedio por proveedor
@@ -320,7 +329,7 @@ with tab3:
             st.dataframe(performance_40_df, use_container_width=True)
 
 with tab4:
-    st.header("🗺️ Destinos sin Coincidencias")
+    st.header("Destinos sin Coincidencias")
     
     if not no_matches_df.empty:
         st.write(f"Total de destinos disponibles en una sola fuente: **{len(no_matches_df)}**")
@@ -373,7 +382,7 @@ with tab4:
         st.info("No hay destinos sin coincidencias en los datos.")
 
 with tab5:
-    st.header("📋 Datos Detallados")
+    st.header("Datos Detallados")
     
     # Selector de dataset
     dataset_option = st.selectbox(
