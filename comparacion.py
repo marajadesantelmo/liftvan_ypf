@@ -1,5 +1,59 @@
 import pandas as pd
 import numpy as np
+import re
+from difflib import SequenceMatcher
+
+def extract_city_name(destination):
+    """
+    Extract the main city name from destination string.
+    Removes everything after '(' or '-' and cleans the string.
+    """
+    if pd.isna(destination):
+        return ""
+    
+    # Convert to string and strip whitespace
+    dest = str(destination).strip()
+    
+    # Remove everything after '(' or '-'
+    # Split by '(' first, then by '-'
+    if '(' in dest:
+        dest = dest.split('(')[0].strip()
+    if '-' in dest:
+        dest = dest.split('-')[0].strip()
+    if '/' in dest:
+        dest = dest.split('/')[0].strip()
+    
+    # Clean and normalize
+    dest = re.sub(r'\s+', ' ', dest)  # Replace multiple spaces with single space
+    dest = dest.lower().strip()
+    
+    return dest
+
+def similarity_score(str1, str2):
+    """Calculate similarity score between two strings."""
+    return SequenceMatcher(None, str1, str2).ratio()
+
+def find_best_match(destination, destination_list, threshold=0.8):
+    """
+    Find the best matching destination from a list.
+    Returns the best match if similarity is above threshold, otherwise None.
+    """
+    city_name = extract_city_name(destination)
+    if not city_name:
+        return None
+    
+    best_match = None
+    best_score = 0
+    
+    for dest in destination_list:
+        dest_city = extract_city_name(dest)
+        if dest_city:
+            score = similarity_score(city_name, dest_city)
+            if score > best_score and score >= threshold:
+                best_score = score
+                best_match = dest
+    
+    return best_match
 
 # Read and clean data
 airesds = pd.read_excel('airesds.xlsx')
@@ -34,17 +88,48 @@ airesds['source'] = 'AiresDS'
 fcl['source'] = 'FCL'
 silver['source'] = 'Silver'
 
-# Create a comprehensive comparison
+# Create a comprehensive comparison with improved matching
 all_destinations = set(airesds['destino'].tolist() + fcl['destino'].tolist() + silver['destino'].tolist())
+
+# Create mapping dictionaries for fuzzy matching
+airesds_destinations = airesds['destino'].tolist()
+fcl_destinations = fcl['destino'].tolist()
+silver_destinations = silver['destino'].tolist()
 
 comparison_data = []
 no_matches_data = []
+matched_destinations = set()
+
+print("Starting destination matching process...")
+print(f"Total unique destinations found: {len(all_destinations)}")
 
 for destino in all_destinations:
-    # Get prices from each source
+    if destino in matched_destinations:
+        continue  # Skip if already processed as part of a match
+    
+    # Try exact match first
     aires_data = airesds[airesds['destino'] == destino]
     fcl_data = fcl[fcl['destino'] == destino]
     silver_data = silver[silver['destino'] == destino]
+    
+    # If no exact matches, try fuzzy matching
+    aires_match = destino if len(aires_data) > 0 else find_best_match(destino, airesds_destinations)
+    fcl_match = destino if len(fcl_data) > 0 else find_best_match(destino, fcl_destinations)
+    silver_match = destino if len(silver_data) > 0 else find_best_match(destino, silver_destinations)
+    
+    # Get data based on matches (exact or fuzzy)
+    if aires_match:
+        aires_data = airesds[airesds['destino'] == aires_match]
+        matched_destinations.add(aires_match)
+    if fcl_match:
+        fcl_data = fcl[fcl['destino'] == fcl_match]
+        matched_destinations.add(fcl_match)
+    if silver_match:
+        silver_data = silver[silver['destino'] == silver_match]
+        matched_destinations.add(silver_match)
+    
+    # Add current destination to matched set
+    matched_destinations.add(destino)
     
     # Check if destination exists in each dataset
     has_aires = len(aires_data) > 0
@@ -55,7 +140,21 @@ for destino in all_destinations:
     sources_count = sum([has_aires, has_fcl, has_silver])
     
     if sources_count >= 2:  # At least 2 sources for comparison
-        row = {'destino': destino}
+        # Determine the primary destination name (prefer exact matches)
+        primary_destino = destino
+        if aires_match and aires_match != destino:
+            primary_destino = f"{destino} / {aires_match}"
+        elif fcl_match and fcl_match != destino:
+            primary_destino = f"{destino} / {fcl_match}"
+        elif silver_match and silver_match != destino:
+            primary_destino = f"{destino} / {silver_match}"
+        
+        row = {'destino': primary_destino}
+        
+        # Store original destination names for reference
+        row['aires_original'] = aires_match if has_aires else None
+        row['fcl_original'] = fcl_match if has_fcl else None
+        row['silver_original'] = silver_match if has_silver else None
         
         # AiresDS prices
         if has_aires:
@@ -114,14 +213,30 @@ for destino in all_destinations:
                 row['best_provider_40'] = 'Silver'
         
         row['sources_available'] = sources_count
+        row['match_type'] = 'exact' if (aires_match == destino and fcl_match == destino and silver_match == destino) else 'fuzzy'
         comparison_data.append(row)
+        
+        # Print matching info for fuzzy matches
+        if row['match_type'] == 'fuzzy':
+            matches_info = []
+            if has_aires and aires_match != destino:
+                matches_info.append(f"AiresDS: {aires_match}")
+            if has_fcl and fcl_match != destino:
+                matches_info.append(f"FCL: {fcl_match}")
+            if has_silver and silver_match != destino:
+                matches_info.append(f"Silver: {silver_match}")
+            
+            if matches_info:
+                print(f"Fuzzy match found for '{destino}' -> {', '.join(matches_info)}")
     
     else:  # Destinations with no matches (only in one source)
         source_name = 'AiresDS' if has_aires else ('FCL' if has_fcl else 'Silver')
         data = aires_data if has_aires else (fcl_data if has_fcl else silver_data)
+        original_dest = aires_match if has_aires else (fcl_match if has_fcl else silver_match)
         
         no_match_row = {
             'destino': destino,
+            'original_destino': original_dest,
             'source': source_name,
             'veinte': data.iloc[0]['veinte'] if len(data) > 0 else np.nan,
             'cuarenta': data.iloc[0]['cuarenta'] if len(data) > 0 else np.nan,
@@ -182,11 +297,18 @@ airesds.to_csv('data/airesds_data.csv', index=False)
 fcl.to_csv('data/fcl_data.csv', index=False)
 silver.to_csv('data/silver_data.csv', index=False)
 
-print("Price Comparison Report Generated!")
+print("Price Comparison Report Generated with Improved Matching!")
 print(f"Total destinations compared: {len(comparison_df)}")
 print(f"Destinations with no matches: {len(no_matches_df)}")
 print(f"Report saved as 'price_comparison_report.xlsx'")
 print("CSV files saved in 'data' folder")
+
+# Count fuzzy matches
+if not comparison_df.empty and 'match_type' in comparison_df.columns:
+    fuzzy_matches = len(comparison_df[comparison_df['match_type'] == 'fuzzy'])
+    exact_matches = len(comparison_df[comparison_df['match_type'] == 'exact'])
+    print(f"Exact matches: {exact_matches}")
+    print(f"Fuzzy matches (improved matching): {fuzzy_matches}")
 
 # Display top 10 biggest price differences
 print("\nTop 10 destinations with biggest price differences (20' containers):")
