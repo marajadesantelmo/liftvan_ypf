@@ -163,12 +163,13 @@ with tab2:
             # Precios por proveedor
             with col3:
                 st.markdown("**Precios por Proveedor**")
-                st.metric("AiresDS 20'", money_fmt(row['aires_20']))
-                st.metric("FCL 20'", money_fmt(row['fcl_20']))
-                st.metric("Silver 20'", money_fmt(row['silver_20']))
-                st.metric("AiresDS 40'", money_fmt(row['aires_40']))
-                st.metric("FCL 40'", money_fmt(row['fcl_40']))
-                st.metric("Silver 40'", money_fmt(row['silver_40']))
+                precios_data = {
+                    "Proveedor": ["AiresDS", "FCL", "Silver"],
+                    "20'": [money_fmt(row['aires_20']), money_fmt(row['fcl_20']), money_fmt(row['silver_20'])],
+                    "40'": [money_fmt(row['aires_40']), money_fmt(row['fcl_40']), money_fmt(row['silver_40'])]
+                }
+                precios_df = pd.DataFrame(precios_data)
+                st.table(precios_df)
 
             # Tabla detallada
             st.dataframe(search_results, use_container_width=True)
