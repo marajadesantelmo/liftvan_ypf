@@ -38,79 +38,6 @@ comparison_df, no_matches_df, summary_stats, airesds_df, fcl_df, silver_df = loa
 st.title("🚢 Dashboard de Comparación de Precios Marítimos")
 st.markdown("### Análisis comparativo de precios entre AiresDS, FCL y Silver")
 
-# Sidebar para filtros
-st.sidebar.header("🔍 Filtros")
-
-# Filtro por proveedor
-proveedores_disponibles = []
-if not comparison_df.empty:
-    proveedores_20 = comparison_df['best_provider_20'].dropna().unique().tolist()
-    proveedores_40 = comparison_df['best_provider_40'].dropna().unique().tolist()
-    proveedores_disponibles = list(set(proveedores_20 + proveedores_40))
-
-proveedor_filter = st.sidebar.multiselect(
-    "Filtrar por mejor proveedor:",
-    options=proveedores_disponibles,
-    default=proveedores_disponibles
-)
-
-# Filtro por rango de precios (contenedor 20')
-if not comparison_df.empty and 'best_price_20' in comparison_df.columns:
-    min_price_20 = comparison_df['best_price_20'].min()
-    max_price_20 = comparison_df['best_price_20'].max()
-    
-    price_range_20 = st.sidebar.slider(
-        "Rango de precios contenedor 20' (USD):",
-        min_value=float(min_price_20),
-        max_value=float(max_price_20),
-        value=(float(min_price_20), float(max_price_20)),
-        step=50.0
-    )
-
-# Filtro por diferencia de precio
-if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
-    max_diff_pct = comparison_df['price_diff_20_pct'].max()
-    
-    diff_threshold = st.sidebar.slider(
-        "Diferencia mínima de precio (%):",
-        min_value=0.0,
-        max_value=float(max_diff_pct),
-        value=0.0,
-        step=5.0
-    )
-
-# Filtro por número de fuentes
-sources_filter = st.sidebar.selectbox(
-    "Número de fuentes disponibles:",
-    options=[2, 3, "Todas"],
-    index=2
-)
-
-# Aplicar filtros
-filtered_df = comparison_df.copy()
-
-if not filtered_df.empty:
-    # Filtrar por proveedor
-    if proveedor_filter:
-        mask = (filtered_df['best_provider_20'].isin(proveedor_filter)) | \
-               (filtered_df['best_provider_40'].isin(proveedor_filter))
-        filtered_df = filtered_df[mask]
-    
-    # Filtrar por rango de precios
-    if 'best_price_20' in filtered_df.columns:
-        filtered_df = filtered_df[
-            (filtered_df['best_price_20'] >= price_range_20[0]) &
-            (filtered_df['best_price_20'] <= price_range_20[1])
-        ]
-    
-    # Filtrar por diferencia de precio
-    if 'price_diff_20_pct' in filtered_df.columns:
-        filtered_df = filtered_df[filtered_df['price_diff_20_pct'] >= diff_threshold]
-    
-    # Filtrar por número de fuentes
-    if sources_filter != "Todas":
-        filtered_df = filtered_df[filtered_df['sources_available'] == sources_filter]
-
 # Crear tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Resumen", 
@@ -182,14 +109,14 @@ with tab2:
     # Buscador por destino
     search_destino = st.text_input("Buscar destino para comparar precios:", "")
     if search_destino:
-        search_results = filtered_df[filtered_df['destino'].str.contains(search_destino, case=False, na=False)]
+        search_results = comparison_df[comparison_df['destino'].str.contains(search_destino, case=False, na=False)]
         if not search_results.empty:
             st.subheader(f"Resultados para: {search_destino}")
             st.dataframe(search_results, use_container_width=True)
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
 
-    if not filtered_df.empty:
+    if not comparison_df.empty:
         # Top 10 diferencias más grandes
         st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
         
@@ -197,7 +124,7 @@ with tab2:
         
         with col1:
             st.write("**Contenedor 20'**")
-            top_diff_20 = filtered_df.nlargest(10, 'price_diff_20_pct')[
+            top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
                 ['destino', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
             ].round(2)
             top_diff_20.columns = ['Destino', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
@@ -205,7 +132,7 @@ with tab2:
         
         with col2:
             st.write("**Contenedor 40'**")
-            top_diff_40 = filtered_df.nlargest(10, 'price_diff_40_pct')[
+            top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
                 ['destino', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
             ].round(2)
             top_diff_40.columns = ['Destino', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
@@ -222,11 +149,11 @@ with tab2:
         # Scatter plot para 20'
         fig_scatter.add_trace(
             go.Scatter(
-                x=filtered_df['best_price_20'],
-                y=filtered_df['price_diff_20_pct'],
+                x=comparison_df['best_price_20'],
+                y=comparison_df['price_diff_20_pct'],
                 mode='markers',
                 name='20\'',
-                text=filtered_df['destino'],
+                text=comparison_df['destino'],
                 hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
                 marker=dict(size=8, color='blue', opacity=0.6)
             ),
@@ -236,11 +163,11 @@ with tab2:
         # Scatter plot para 40'
         fig_scatter.add_trace(
             go.Scatter(
-                x=filtered_df['best_price_40'],
-                y=filtered_df['price_diff_40_pct'],
+                x=comparison_df['best_price_40'],
+                y=comparison_df['price_diff_40_pct'],
                 mode='markers',
                 name='40\'',
-                text=filtered_df['destino'],
+                text=comparison_df['destino'],
                 hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
                 marker=dict(size=8, color='red', opacity=0.6)
             ),
@@ -261,7 +188,7 @@ with tab2:
         st.plotly_chart(fig_scatter, use_container_width=True)
     
     else:
-        st.warning("No hay datos que mostrar con los filtros aplicados.")
+        st.warning("No hay datos que mostrar.")
 
 with tab3:
     st.header("Análisis por Proveedor")
@@ -369,6 +296,79 @@ with tab4:
         if fuente_selected != "Todas":
             no_matches_filtered = no_matches_df[no_matches_df['source'] == fuente_selected]
         else:
+            no_matches_filtered = no_matches_df
+        
+        # Mostrar tabla
+        display_df = no_matches_filtered[['destino', 'source', 'veinte', 'cuarenta']].copy()
+        display_df.columns = ['Destino', 'Fuente', 'Precio 20\'', 'Precio 40\'']
+        display_df = display_df.fillna('N/A')
+        
+        st.dataframe(display_df, use_container_width=True)
+    
+    else:
+        st.info("No hay destinos sin coincidencias en los datos.")
+
+with tab5:
+    st.header("Datos Detallados")
+    
+    # Selector de dataset
+    dataset_option = st.selectbox(
+        "Seleccionar dataset:",
+        options=[
+            "Comparación de Precios",
+            "Datos AiresDS",
+            "Datos FCL", 
+            "Datos Silver",
+            "Estadísticas Resumen"
+        ]
+    )
+    
+    if dataset_option == "Comparación de Precios":
+        st.subheader("Datos de Comparación de Precios")
+        st.dataframe(comparison_df, use_container_width=True)
+        
+        # Opción de descarga
+        csv = comparison_df.to_csv(index=False)
+        st.download_button(
+            label="Descargar datos como CSV",
+            data=csv,
+            file_name="comparacion_precios.csv",
+            mime="text/csv"
+        )
+    
+    elif dataset_option == "Datos AiresDS":
+        st.subheader("Datos de AiresDS")
+        st.dataframe(airesds_df, use_container_width=True)
+    
+    elif dataset_option == "Datos FCL":
+        st.subheader("Datos de FCL")
+        st.dataframe(fcl_df, use_container_width=True)
+    
+    elif dataset_option == "Datos Silver":
+        st.subheader("Datos de Silver")
+        st.dataframe(silver_df, use_container_width=True)
+    
+    elif dataset_option == "Estadísticas Resumen":
+        st.subheader("Estadísticas de Resumen")
+        summary_display = summary_stats.copy()
+        summary_display.index = [
+            "Total destinos comparados",
+            "Diferencia promedio 20' (%)",
+            "Diferencia máxima 20' (%)", 
+            "Diferencia promedio 40' (%)",
+            "Diferencia máxima 40' (%)",
+            "AiresDS mejores precios 20'",
+            "FCL mejores precios 20'",
+            "Silver mejores precios 20'",
+            "AiresDS mejores precios 40'",
+            "FCL mejores precios 40'",
+            "Silver mejores precios 40'"
+        ]
+        st.dataframe(summary_display, use_container_width=True)
+
+# Footer
+st.markdown("---")
+st.markdown("**Dashboard de Comparación de Precios Marítimos** | Generado automáticamente desde los datos de comparacion.py")
             no_matches_filtered = no_matches_df
         
         # Mostrar tabla
