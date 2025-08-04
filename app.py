@@ -130,17 +130,10 @@ with tab2:
                     value=row['best_provider_20'].capitalize() if pd.notna(row['best_provider_20']) else "N/A"
                 )
                 st.metric(
-                    label="Mejor Precio",
+                    label="Precio",
                     value=money_fmt(row['best_price_20'])
                 )
-                st.metric(
-                    label="Peor Precio",
-                    value=money_fmt(row['worst_price_20'])
-                )
-                st.metric(
-                    label="Diferencia %",
-                    value=f"{row['price_diff_20_pct']:.1f}%" if pd.notna(row['price_diff_20_pct']) else "N/A"
-                )
+
             # Mejor proveedor 40'
             with col2:
                 st.markdown("**Contenedor 40'**")
@@ -149,17 +142,10 @@ with tab2:
                     value=row['best_provider_40'].capitalize() if pd.notna(row['best_provider_40']) else "N/A"
                 )
                 st.metric(
-                    label="Mejor Precio",
+                    label=" Precio",
                     value=money_fmt(row['best_price_40'])
                 )
-                st.metric(
-                    label="Peor Precio",
-                    value=money_fmt(row['worst_price_40'])
-                )
-                st.metric(
-                    label="Diferencia %",
-                    value=f"{row['price_diff_40_pct']:.1f}%" if pd.notna(row['price_diff_40_pct']) else "N/A"
-                )
+
             # Precios por proveedor
             with col3:
                 st.markdown("**Precios por Proveedor**")
@@ -171,8 +157,6 @@ with tab2:
                 precios_df = pd.DataFrame(precios_data)
                 st.table(precios_df)
 
-            # Tabla detallada
-            st.dataframe(search_results, use_container_width=True)
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
 
