@@ -112,6 +112,65 @@ with tab2:
         search_results = comparison_df[comparison_df['destino'].str.contains(search_destino, case=False, na=False)]
         if not search_results.empty:
             st.subheader(f"Resultados para: {search_destino}")
+
+            # Score cards: Mejor proveedor y precios
+            col1, col2, col3 = st.columns(3)
+            row = search_results.iloc[0]
+
+            def money_fmt(val):
+                if pd.isna(val):
+                    return "N/A"
+                return "${:,.0f}".format(val).replace(",", ".")
+            
+            # Mejor proveedor 20'
+            with col1:
+                st.markdown("**Contenedor 20'**")
+                st.metric(
+                    label="Mejor Proveedor",
+                    value=row['best_provider_20'].capitalize() if pd.notna(row['best_provider_20']) else "N/A"
+                )
+                st.metric(
+                    label="Mejor Precio",
+                    value=money_fmt(row['best_price_20'])
+                )
+                st.metric(
+                    label="Peor Precio",
+                    value=money_fmt(row['worst_price_20'])
+                )
+                st.metric(
+                    label="Diferencia %",
+                    value=f"{row['price_diff_20_pct']:.1f}%" if pd.notna(row['price_diff_20_pct']) else "N/A"
+                )
+            # Mejor proveedor 40'
+            with col2:
+                st.markdown("**Contenedor 40'**")
+                st.metric(
+                    label="Mejor Proveedor",
+                    value=row['best_provider_40'].capitalize() if pd.notna(row['best_provider_40']) else "N/A"
+                )
+                st.metric(
+                    label="Mejor Precio",
+                    value=money_fmt(row['best_price_40'])
+                )
+                st.metric(
+                    label="Peor Precio",
+                    value=money_fmt(row['worst_price_40'])
+                )
+                st.metric(
+                    label="Diferencia %",
+                    value=f"{row['price_diff_40_pct']:.1f}%" if pd.notna(row['price_diff_40_pct']) else "N/A"
+                )
+            # Precios por proveedor
+            with col3:
+                st.markdown("**Precios por Proveedor**")
+                st.metric("AiresDS 20'", money_fmt(row['aires_20']))
+                st.metric("FCL 20'", money_fmt(row['fcl_20']))
+                st.metric("Silver 20'", money_fmt(row['silver_20']))
+                st.metric("AiresDS 40'", money_fmt(row['aires_40']))
+                st.metric("FCL 40'", money_fmt(row['fcl_40']))
+                st.metric("Silver 40'", money_fmt(row['silver_40']))
+
+            # Tabla detallada
             st.dataframe(search_results, use_container_width=True)
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
