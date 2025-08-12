@@ -225,113 +225,109 @@ with tab2:
         else:
             st.metric("Diferencia Máxima (%)", "N/A")
 
-    if not comparison_df.empty:
-        # Gráfico de dispersión de precios
-        st.subheader("Análisis de Dispersión de Precios")
-        
-        fig_scatter = make_subplots(
-            rows=1, cols=2,
-            subplot_titles=('Contenedor 20\'', 'Contenedor 40\''),
-            specs=[[{"secondary_y": False}, {"secondary_y": False}]]
-        )
-        
-        # Create hover text with port codes
-        hover_text_20 = []
-        hover_text_40 = []
-        for _, row in comparison_df.iterrows():
-            port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
-            hover_text_20.append(f"{row['destino']}{port_info}")
-            hover_text_40.append(f"{row['destino']}{port_info}")
-        
-        # Scatter plot para 20'
-        fig_scatter.add_trace(
-            go.Scatter(
-                x=comparison_df['best_price_20'],
-                y=comparison_df['price_diff_20_pct'],
-                mode='markers',
-                name='20\'',
-                text=hover_text_20,
-                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
-                marker=dict(size=8, color='blue', opacity=0.6)
-            ),
-            row=1, col=1
-        )
-        
-        # Scatter plot para 40'
-        fig_scatter.add_trace(
-            go.Scatter(
-                x=comparison_df['best_price_40'],
-                y=comparison_df['price_diff_40_pct'],
-                mode='markers',
-                name='40\'',
-                text=hover_text_40,
-                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
-                marker=dict(size=8, color='red', opacity=0.6)
-            ),
-            row=1, col=2
-        )
-        
-        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=1)
-        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=2)
-        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=1)
-        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=2)
-        
-        fig_scatter.update_layout(
-            title="Relación entre Precio Base y Diferencia Porcentual",
-            height=500,
-            showlegend=False
-        )
-        
-        st.plotly_chart(fig_scatter, use_container_width=True)
-
-        # Top 10 diferencias más grandes
-        st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.write("**Contenedor 20'**")
-            top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
-                ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
-            ].round(2)
-            top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-            st.dataframe(top_diff_20, use_container_width=True)
-        
-        with col2:
-            st.write("**Contenedor 40'**")
-            top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
-                ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
-            ].round(2)
-            top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-            st.dataframe(top_diff_40, use_container_width=True)
+    col1, col2 = st.columns(2)
     
-    # Gráfico de rendimiento por proveedor
-    if not comparison_df.empty:
-        col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Mejores Precios por Proveedor (Contenedor 20')")
+        provider_counts_20 = comparison_df['best_provider_20'].value_counts()
         
-        with col1:
-            st.subheader("Mejores Precios por Proveedor (Contenedor 20')")
-            provider_counts_20 = comparison_df['best_provider_20'].value_counts()
-            
-            fig_provider_20 = px.pie(
-                values=provider_counts_20.values,
-                names=provider_counts_20.index,
-                title="Distribución de Mejores Precios - Contenedor 20'"
-            )
-            fig_provider_20.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig_provider_20, use_container_width=True)
+        fig_provider_20 = px.pie(
+            values=provider_counts_20.values,
+            names=provider_counts_20.index,
+            title="Distribución de Mejores Precios - Contenedor 20'"
+        )
+        fig_provider_20.update_traces(textposition='inside', textinfo='percent+label')
+        st.plotly_chart(fig_provider_20, use_container_width=True)
+    
+    with col2:
+        st.subheader("Mejores Precios por Proveedor (Contenedor 40')")
+        provider_counts_40 = comparison_df['best_provider_40'].value_counts()
         
-        with col2:
-            st.subheader("Mejores Precios por Proveedor (Contenedor 40')")
-            provider_counts_40 = comparison_df['best_provider_40'].value_counts()
-            
-            fig_provider_40 = px.pie(
-                values=provider_counts_40.values,
-                names=provider_counts_40.index,
-                title="Distribución de Mejores Precios - Contenedor 40'"
-            )
-            fig_provider_40.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig_provider_40, use_container_width=True)
+        fig_provider_40 = px.pie(
+            values=provider_counts_40.values,
+            names=provider_counts_40.index,
+            title="Distribución de Mejores Precios - Contenedor 40'"
+        )
+        fig_provider_40.update_traces(textposition='inside', textinfo='percent+label')
+        st.plotly_chart(fig_provider_40, use_container_width=True)
+
+    # Top 10 diferencias más grandes
+    st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.write("**Contenedor 20'**")
+        top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
+            ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
+        ].round(2)
+        top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+        st.dataframe(top_diff_20, use_container_width=True)
+    
+    with col2:
+        st.write("**Contenedor 40'**")
+        top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
+            ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
+        ].round(2)
+        top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+        st.dataframe(top_diff_40, use_container_width=True)
+    
+    st.subheader("Análisis de Dispersión de Precios")
+    
+    fig_scatter = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=('Contenedor 20\'', 'Contenedor 40\''),
+        specs=[[{"secondary_y": False}, {"secondary_y": False}]]
+    )
+    
+    # Create hover text with port codes
+    hover_text_20 = []
+    hover_text_40 = []
+    for _, row in comparison_df.iterrows():
+        port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
+        hover_text_20.append(f"{row['destino']}{port_info}")
+        hover_text_40.append(f"{row['destino']}{port_info}")
+    
+    # Scatter plot para 20'
+    fig_scatter.add_trace(
+        go.Scatter(
+            x=comparison_df['best_price_20'],
+            y=comparison_df['price_diff_20_pct'],
+            mode='markers',
+            name='20\'',
+            text=hover_text_20,
+            hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
+            marker=dict(size=8, color='blue', opacity=0.6)
+        ),
+        row=1, col=1
+    )
+    
+    # Scatter plot para 40'
+    fig_scatter.add_trace(
+        go.Scatter(
+            x=comparison_df['best_price_40'],
+            y=comparison_df['price_diff_40_pct'],
+            mode='markers',
+            name='40\'',
+            text=hover_text_40,
+            hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
+            marker=dict(size=8, color='red', opacity=0.6)
+        ),
+        row=1, col=2
+    )
+    
+    fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=1)
+    fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=2)
+    fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=1)
+    fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=2)
+    
+    fig_scatter.update_layout(
+        title="Relación entre Precio Base y Diferencia Porcentual",
+        height=500,
+        showlegend=False
+    )
+    
+    st.plotly_chart(fig_scatter, use_container_width=True)
 
 with tab3:
     st.header("Análisis por Proveedor")
