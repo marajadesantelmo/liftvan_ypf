@@ -236,7 +236,12 @@ with tab2:
             names=provider_counts_20.index,
             title="Distribución de Mejores Precios - Contenedor 20'"
         )
-        fig_provider_20.update_traces(textposition='inside', textinfo='percent+label')
+        fig_provider_20.update_traces(
+            textposition='inside',
+            textinfo='percent+label',
+            textfont=dict(size=24)
+        )
+        fig_provider_20.update_layout(showlegend=False)
         st.plotly_chart(fig_provider_20, use_container_width=True)
     
     with col2:
@@ -248,7 +253,12 @@ with tab2:
             names=provider_counts_40.index,
             title="Distribución de Mejores Precios - Contenedor 40'"
         )
-        fig_provider_40.update_traces(textposition='inside', textinfo='percent+label')
+        fig_provider_40.update_traces(
+            textposition='inside',
+            textinfo='percent+label',
+            textfont=dict(size=24)
+        )
+        fig_provider_40.update_layout(showlegend=False)
         st.plotly_chart(fig_provider_40, use_container_width=True)
 
     # Top 10 diferencias más grandes
