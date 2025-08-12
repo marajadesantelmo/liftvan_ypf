@@ -87,11 +87,73 @@ with tab1:
     
     # Show results for both port filter and destination selection
     if port_filter != "Todos los puertos" and search_destino == "Seleccione un destino...":
-        # Show all destinations for selected port
+        # Show summary for selected port
         if not filtered_comparison_df.empty:
-            st.subheader(f"Destinos en puerto {port_filter}")
+            st.subheader(f"Resumen para puerto {port_filter}")
             
-            # Display filtered destinations table
+            # Port summary metrics
+            col1, col2, col3, col4 = st.columns(4)
+            
+            with col1:
+                total_destinos_puerto = len(filtered_comparison_df)
+                st.metric("Destinos en Puerto", total_destinos_puerto)
+            
+            with col2:
+                if 'price_diff_20_pct' in filtered_comparison_df.columns:
+                    avg_diff_puerto = filtered_comparison_df['price_diff_20_pct'].mean()
+                    st.metric("Diferencia Promedio (%)", f"{avg_diff_puerto:.1f}%")
+                else:
+                    st.metric("Diferencia Promedio (%)", "N/A")
+            
+            with col3:
+                if 'best_price_20' in filtered_comparison_df.columns:
+                    avg_price_20 = filtered_comparison_df['best_price_20'].mean()
+                    st.metric("Precio Promedio 20'", f"${avg_price_20:,.0f}")
+                else:
+                    st.metric("Precio Promedio 20'", "N/A")
+            
+            with col4:
+                if 'best_price_40' in filtered_comparison_df.columns:
+                    avg_price_40 = filtered_comparison_df['best_price_40'].mean()
+                    st.metric("Precio Promedio 40'", f"${avg_price_40:,.0f}")
+                else:
+                    st.metric("Precio Promedio 40'", "N/A")
+            
+            # Provider performance for this port
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("**Mejores Proveedores 20'**")
+                if 'best_provider_20' in filtered_comparison_df.columns:
+                    provider_counts_20_port = filtered_comparison_df['best_provider_20'].value_counts()
+                    provider_perc_20 = (provider_counts_20_port / provider_counts_20_port.sum() * 100).round(1)
+                    
+                    provider_summary_20 = pd.DataFrame({
+                        'Proveedor': provider_counts_20_port.index,
+                        'Cantidad': provider_counts_20_port.values,
+                        'Porcentaje': provider_perc_20.values
+                    })
+                    st.dataframe(provider_summary_20, use_container_width=True, hide_index=True)
+                else:
+                    st.info("No hay datos de proveedores")
+            
+            with col2:
+                st.markdown("**Mejores Proveedores 40'**")
+                if 'best_provider_40' in filtered_comparison_df.columns:
+                    provider_counts_40_port = filtered_comparison_df['best_provider_40'].value_counts()
+                    provider_perc_40 = (provider_counts_40_port / provider_counts_40_port.sum() * 100).round(1)
+                    
+                    provider_summary_40 = pd.DataFrame({
+                        'Proveedor': provider_counts_40_port.index,
+                        'Cantidad': provider_counts_40_port.values,
+                        'Porcentaje': provider_perc_40.values
+                    })
+                    st.dataframe(provider_summary_40, use_container_width=True, hide_index=True)
+                else:
+                    st.info("No hay datos de proveedores")
+            
+            # Detailed destinations table
+            st.subheader(f"Destinos detallados en puerto {port_filter}")
             display_columns = ['destino', 'best_price_20', 'best_provider_20', 'best_price_40', 'best_provider_40', 'price_diff_20_pct', 'price_diff_40_pct']
             port_results = filtered_comparison_df[display_columns].copy()
             port_results.columns = ['Destino', 'Mejor Precio 20\'', 'Mejor Proveedor 20\'', 'Mejor Precio 40\'', 'Mejor Proveedor 40\'', 'Diferencia % 20\'', 'Diferencia % 40\'']
