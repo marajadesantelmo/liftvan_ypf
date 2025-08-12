@@ -89,7 +89,7 @@ with tab1:
     if port_filter != "Todos los puertos" and search_destino == "Seleccione un destino...":
         # Show all destinations for selected port with individual summaries
         if not filtered_comparison_df.empty:
-            st.subheader(f"Destinos en puerto {port_filter}")
+            st.subheader(f"Código de puerto {port_filter}")
             
             def money_fmt(val):
                 if pd.isna(val):
@@ -146,50 +146,50 @@ with tab1:
             
             # Display port code if available
             port_code_display = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
-            st.subheader(f"Resultados para: {search_destino}{port_code_display}")
-
-            # Score cards: Mejor proveedor y precios
-            col1, col2, col3 = st.columns(3)
-
-            def money_fmt(val):
-                if pd.isna(val):
-                    return "N/A"
-                return "${:,.0f}".format(val).replace(",", ".")
             
-            # Mejor proveedor 20'
-            with col1:
-                st.markdown("**Contenedor 20'**")
-                st.metric(
-                    label="Mejor Proveedor",
-                    value=row['best_provider_20'].capitalize() if pd.notna(row['best_provider_20']) else "N/A"
-                )
-                st.metric(
-                    label="Precio",
-                    value=money_fmt(row['best_price_20'])
-                )
+            with st.expander(f"📍 {search_destino}{port_code_display}", expanded=True):
+                # Score cards: Mejor proveedor y precios
+                col1, col2, col3 = st.columns(3)
 
-            # Mejor proveedor 40'
-            with col2:
-                st.markdown("**Contenedor 40'**")
-                st.metric(
-                    label="Mejor Proveedor",
-                    value=row['best_provider_40'].capitalize() if pd.notna(row['best_provider_40']) else "N/A"
-                )
-                st.metric(
-                    label=" Precio",
-                    value=money_fmt(row['best_price_40'])
-                )
+                def money_fmt(val):
+                    if pd.isna(val):
+                        return "N/A"
+                    return "${:,.0f}".format(val).replace(",", ".")
+                
+                # Mejor proveedor 20'
+                with col1:
+                    st.markdown("**Contenedor 20'**")
+                    st.metric(
+                        label="Mejor Proveedor",
+                        value=row['best_provider_20'].capitalize() if pd.notna(row['best_provider_20']) else "N/A"
+                    )
+                    st.metric(
+                        label="Precio",
+                        value=money_fmt(row['best_price_20'])
+                    )
 
-            # Precios por proveedor
-            with col3:
-                st.markdown("**Precios por Proveedor**")
-                precios_data = {
-                    "Proveedor": ["AiresDS", "FCL", "Silver"],
-                    "20'": [money_fmt(row['aires_20']), money_fmt(row['fcl_20']), money_fmt(row['silver_20'])],
-                    "40'": [money_fmt(row['aires_40']), money_fmt(row['fcl_40']), money_fmt(row['silver_40'])]
-                }
-                precios_df = pd.DataFrame(precios_data)
-                st.table(precios_df)
+                # Mejor proveedor 40'
+                with col2:
+                    st.markdown("**Contenedor 40'**")
+                    st.metric(
+                        label="Mejor Proveedor",
+                        value=row['best_provider_40'].capitalize() if pd.notna(row['best_provider_40']) else "N/A"
+                    )
+                    st.metric(
+                        label=" Precio",
+                        value=money_fmt(row['best_price_40'])
+                    )
+
+                # Precios por proveedor
+                with col3:
+                    st.markdown("**Precios por Proveedor**")
+                    precios_data = {
+                        "Proveedor": ["AiresDS", "FCL", "Silver"],
+                        "20'": [money_fmt(row['aires_20']), money_fmt(row['fcl_20']), money_fmt(row['silver_20'])],
+                        "40'": [money_fmt(row['aires_40']), money_fmt(row['fcl_40']), money_fmt(row['silver_40'])]
+                    }
+                    precios_df = pd.DataFrame(precios_data)
+                    st.table(precios_df)
 
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
