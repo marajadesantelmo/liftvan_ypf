@@ -122,7 +122,7 @@ silver['port_code'] = silver['destino'].apply(extract_port_code)
 
 # Add source columns
 airesds['source'] = 'AiresDS'
-fcl['source'] = 'FCL'
+fcl['source'] = 'EXIM'
 silver['source'] = 'Silver'
 
 # Create a comprehensive comparison with improved matching
@@ -241,7 +241,7 @@ for destino in all_destinations:
             if pd.notna(row.get('aires_20')) and row['aires_20'] == row['best_price_20']:
                 row['best_provider_20'] = 'AiresDS'
             elif pd.notna(row.get('fcl_20')) and row['fcl_20'] == row['best_price_20']:
-                row['best_provider_20'] = 'FCL'
+                row['best_provider_20'] = 'EXIM'
             else:
                 row['best_provider_20'] = 'Silver'
         
@@ -257,7 +257,7 @@ for destino in all_destinations:
             if pd.notna(row.get('aires_40')) and row['aires_40'] == row['best_price_40']:
                 row['best_provider_40'] = 'AiresDS'
             elif pd.notna(row.get('fcl_40')) and row['fcl_40'] == row['best_price_40']:
-                row['best_provider_40'] = 'FCL'
+                row['best_provider_40'] = 'EXIM'
             else:
                 row['best_provider_40'] = 'Silver'
         
@@ -271,7 +271,7 @@ for destino in all_destinations:
             if has_aires and aires_match != destino:
                 matches_info.append(f"AiresDS: {aires_match}")
             if has_fcl and fcl_match != destino:
-                matches_info.append(f"FCL: {fcl_match}")
+                matches_info.append(f"EXIM: {fcl_match}")
             if has_silver and silver_match != destino:
                 matches_info.append(f"Silver: {silver_match}")
             
@@ -279,7 +279,7 @@ for destino in all_destinations:
                 print(f"Fuzzy match found for '{destino}' -> {', '.join(matches_info)}")
     
     else:  # Destinations with no matches (only in one source)
-        source_name = 'AiresDS' if has_aires else ('FCL' if has_fcl else 'Silver')
+        source_name = 'AiresDS' if has_aires else ('EXIM' if has_fcl else 'Silver')
         data = aires_data if has_aires else (fcl_data if has_fcl else silver_data)
         original_dest = aires_match if has_aires else (fcl_match if has_fcl else silver_match)
         
@@ -312,10 +312,10 @@ if not comparison_df.empty:
         'avg_price_diff_40_pct': comparison_df['price_diff_40_pct'].mean(),
         'max_price_diff_40_pct': comparison_df['price_diff_40_pct'].max(),
         'aires_best_count_20': (comparison_df['best_provider_20'] == 'AiresDS').sum(),
-        'fcl_best_count_20': (comparison_df['best_provider_20'] == 'FCL').sum(),
+        'fcl_best_count_20': (comparison_df['best_provider_20'] == 'EXIM').sum(),
         'silver_best_count_20': (comparison_df['best_provider_20'] == 'Silver').sum(),
         'aires_best_count_40': (comparison_df['best_provider_40'] == 'AiresDS').sum(),
-        'fcl_best_count_40': (comparison_df['best_provider_40'] == 'FCL').sum(),
+        'fcl_best_count_40': (comparison_df['best_provider_40'] == 'EXIM').sum(),
         'silver_best_count_40': (comparison_df['best_provider_40'] == 'Silver').sum(),
     }
 
@@ -334,7 +334,7 @@ with pd.ExcelWriter('price_comparison_report.xlsx', engine='openpyxl') as writer
     
     # Individual source data for reference
     airesds.to_excel(writer, sheet_name='AiresDS Data', index=False)
-    fcl.to_excel(writer, sheet_name='FCL Data', index=False)
+    fcl.to_excel(writer, sheet_name='EXIM Data', index=False)
     silver.to_excel(writer, sheet_name='Silver Data', index=False)
 
 # Save each sheet as CSV in data folder
@@ -344,7 +344,7 @@ summary_df = pd.DataFrame([summary_stats]).T
 summary_df.columns = ['Value']
 summary_df.to_csv('data/summary_statistics.csv')
 airesds.to_csv('data/airesds_data.csv', index=False)
-fcl.to_csv('data/fcl_data.csv', index=False)
+fcl.to_csv('data/exim_data.csv', index=False)
 silver.to_csv('data/silver_data.csv', index=False)
 
 print("Price Comparison Report Generated with Improved Matching!")
@@ -370,5 +370,5 @@ if not comparison_df.empty:
 print(f"\nProvider Performance Summary (20' containers):")
 if 'aires_best_count_20' in summary_stats:
     print(f"AiresDS best prices: {summary_stats['aires_best_count_20']}")
-    print(f"FCL best prices: {summary_stats['fcl_best_count_20']}")
+    print(f"EXIM best prices: {summary_stats['fcl_best_count_20']}")
     print(f"Silver best prices: {summary_stats['silver_best_count_20']}")

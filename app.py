@@ -23,20 +23,20 @@ def load_data():
         no_matches_df = pd.read_csv('data/no_matches.csv')
         summary_stats = pd.read_csv('data/summary_statistics.csv', index_col=0)
         airesds_df = pd.read_csv('data/airesds_data.csv')
-        fcl_df = pd.read_csv('data/fcl_data.csv')
+        exim_df = pd.read_csv('data/exim_data.csv')
         silver_df = pd.read_csv('data/silver_data.csv')
         
-        return comparison_df, no_matches_df, summary_stats, airesds_df, fcl_df, silver_df
+        return comparison_df, no_matches_df, summary_stats, airesds_df, exim_df, silver_df
     except FileNotFoundError as e:
         st.error(f"Error: No se pudieron cargar los datos. Asegúrate de ejecutar comparacion.py primero. {e}")
         st.stop()
 
 # Cargar datos
-comparison_df, no_matches_df, summary_stats, airesds_df, fcl_df, silver_df = load_data()
+comparison_df, no_matches_df, summary_stats, airesds_df, exim_df, silver_df = load_data()
 
 # Título principal
 st.title("🚢 Dashboard de Comparación de Precios Marítimos")
-st.markdown("### Análisis comparativo de precios entre AiresDS, FCL y Silver")
+st.markdown("### Análisis comparativo de precios entre AiresDS, EXIM y Silver")
 
 # Crear tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
@@ -130,7 +130,7 @@ with tab1:
                     with col3:
                         st.markdown("**Precios por Proveedor**")
                         precios_data = {
-                            "Proveedor": ["AiresDS", "FCL", "Silver"],
+                            "Proveedor": ["AiresDS", "EXIM", "Silver"],
                             "20'": [money_fmt(row['aires_20']), money_fmt(row['fcl_20']), money_fmt(row['silver_20'])],
                             "40'": [money_fmt(row['aires_40']), money_fmt(row['fcl_40']), money_fmt(row['silver_40'])]
                         }
@@ -184,7 +184,7 @@ with tab1:
                 with col3:
                     st.markdown("**Precios por Proveedor**")
                     precios_data = {
-                        "Proveedor": ["AiresDS", "FCL", "Silver"],
+                        "Proveedor": ["AiresDS", "EXIM", "Silver"],
                         "20'": [money_fmt(row['aires_20']), money_fmt(row['fcl_20']), money_fmt(row['silver_20'])],
                         "40'": [money_fmt(row['aires_40']), money_fmt(row['fcl_40']), money_fmt(row['silver_40'])]
                     }
@@ -498,7 +498,7 @@ with tab5:
         options=[
             "Comparación de Precios",
             "Datos AiresDS",
-            "Datos FCL", 
+            "Datos EXIM", 
             "Datos Silver",
             "Estadísticas Resumen"
         ]
@@ -521,9 +521,9 @@ with tab5:
         st.subheader("Datos de AiresDS")
         st.dataframe(airesds_df, use_container_width=True)
     
-    elif dataset_option == "Datos FCL":
-        st.subheader("Datos de FCL")
-        st.dataframe(fcl_df, use_container_width=True)
+    elif dataset_option == "Datos EXIM":
+        st.subheader("Datos de EXIM")
+        st.dataframe(exim_df, use_container_width=True)
     
     elif dataset_option == "Datos Silver":
         st.subheader("Datos de Silver")
@@ -539,10 +539,10 @@ with tab5:
             "Diferencia promedio 40' (%)",
             "Diferencia máxima 40' (%)",
             "AiresDS mejores precios 20'",
-            "FCL mejores precios 20'",
+            "EXIM mejores precios 20'",
             "Silver mejores precios 20'",
             "AiresDS mejores precios 40'",
-            "FCL mejores precios 40'",
+            "EXIM mejores precios 40'",
             "Silver mejores precios 40'"
         ]
         st.dataframe(summary_display, use_container_width=True)
@@ -562,10 +562,10 @@ with tab5:
             "Diferencia promedio 40' (%)",
             "Diferencia máxima 40' (%)",
             "AiresDS mejores precios 20'",
-            "FCL mejores precios 20'",
+            "EXIM mejores precios 20'",
             "Silver mejores precios 20'",
             "AiresDS mejores precios 40'",
-            "FCL mejores precios 40'",
+            "EXIM mejores precios 40'",
             "Silver mejores precios 40'"
         ]
         st.dataframe(summary_display, use_container_width=True)
