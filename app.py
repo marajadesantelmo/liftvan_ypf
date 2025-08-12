@@ -108,7 +108,7 @@ with tab2:
 
     # Port code filter
     if not comparison_df.empty and 'port_code' in comparison_df.columns:
-        available_ports = sorted([code for code in comparison_df['port_code'].unique() if code])
+        available_ports = sorted([code for code in comparison_df['port_code'].unique() if pd.notna(code) and code != ""])
         
         col1, col2 = st.columns(2)
         
@@ -354,7 +354,7 @@ with tab4:
         
         # Port code filter for no matches
         if 'port_code' in no_matches_df.columns:
-            available_ports_no_match = sorted([code for code in no_matches_df['port_code'].unique() if code])
+            available_ports_no_match = sorted([code for code in no_matches_df['port_code'].unique() if pd.notna(code) and code != ""])
             
             col1, col2 = st.columns(2)
             
