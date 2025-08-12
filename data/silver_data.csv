@@ -1,120 +1,120 @@
-destino,veinte,cuarenta,source
-Alexandria (EGALY),3550.0,3750.0,Silver
-Algeciras (ESALG),2873.0,3331.0,Silver
-Antwerp (BEANR),2630.0,2790.0,Silver
-Arica (CLARI),6326.0,6890.0,Silver
-Ashdod (ILASH),3152.0,3650.0,Silver
-Atlanta (USATL),6695.0,6850.0,Silver
-Auckland,4310.0,4610.0,Silver
-Baltimore (USBAL),5890.0,6090.0,Silver
-Barcelona (ESBCN),2815.0,3160.0,Silver
-Bassens,,,Silver
-Bogota (COBOG),,,Silver
-Bremen,3180.0,3380.0,Silver
-Bremerhaven (DEBRV),2630.0,2795.0,Silver
-Brisbane (AUBNE),3510.0,3717.0,Silver
-Budapest (HUBUD),2510.0,2930.0,Silver
-Buenaventura,4525.0,5225.0,Silver
-"Busan, KR - KRPUS",2500.0,2700.0,Silver
-Cagliaria,,,Silver
-Callao (PECLL),4660.0,5060.0,Silver
-Cartagena Port (COCTG),4810.0,5010.0,Silver
-Caucedo (DOCAU),5055.0,5500.0,Silver
-Charleston (USCHS),4890.0,5465.0,Silver
-Charlotte,6695.0,6850.0,Silver
-Chicago (via NYC),6800.0,7000.0,Silver
-Cleveland (USCLE),6900.0,7150.0,Silver
-Constanta,3025.0,3390.0,Silver
-Copenhagen,2930.0,4050.0,Silver
-Dallas (USDAL),5690.0,5890.0,Silver
-Denver (USDEN),6900.0,7390.0,Silver
-Detroit (USDET),6890.0,7110.0,Silver
-Dublin (IEDUB),3740.0,4770.0,Silver
-Edmonton Terminal,,,Silver
-Estocolmo (SESTO),,,Silver
-Felixstowe,3610.0,4500.0,Silver
-Fos sur Mer,2915.0,3360.0,Silver
-Fremantle,3700.0,4140.0,Silver
-Genoa (ITGOA),2815.0,3160.0,Silver
-Gdynia,3230.0,3400.0,Silver
-Grangemouth,3550.0,4220.0,Silver
-Guayaquil (ECQYE),4670.0,5060.0,Silver
-Haifa,3155.0,3650.0,Silver
-Halifax Port,,,Silver
-Hamburg (DEHAM),2630.0,2795.0,Silver
-Houston (USHOU),4890.0,5030.0,Silver
-Incheon,3090.0,3890.0,Silver
-Jacksonville,5750.0,6020.0,Silver
-Jebel Ali (AEJEA),2900.0,4635.0,Silver
-Karachi (PKKHI),7150.0,7370.0,Silver
-Keelung (TWKEL),3145.0,3735.0,Silver
-Klang (MYPKG),3745.0,4625.0,Silver
-La Guaira,,,Silver
-Le Havre (FRLEH),2630.0,2795.0,Silver
-Lagos,,,Silver
-Lisboa (PTLIS),2870.0,3310.0,Silver
-Lyttelton,4515.0,5010.0,Silver
-Livorno (ITLIV),2565.0,3160.0,Silver
-London Gateway (GBLGP),2600.0,2730.0,Silver
-Long Beach CA (USLGB),5135.0,5385.0,Silver
-Los Angeles (USLAX),5135.0,5385.0,Silver
-Louisiana (USLUA),7520.0,7770.0,Silver
-Luxemburgo,3910.0,4075.0,Silver
-Madrid (ESMAD),3090.0,3590.0,Silver
-Malaga (ESAGP),,,Silver
-Manila,2585.0,2775.0,Silver
-Manzanillo (PAMIT),5050.0,5490.0,Silver
-Manzanillo (México),5695.0,7635.0,Silver
-Melbourne,3310.0,3560.0,Silver
-Miami,4940.0,5015.0,Silver
-Milan,3450.0,3799.0,Silver
-Montoir,3465.0,4450.0,Silver
-Montreal Port,,,Silver
-Nairobi Terminal,,,Silver
-Napoles,2930.0,3920.0,Silver
-Nassau Bahamas,12290.0,15970.0,Silver
-New Delhi,5900.0,7360.0,Silver
-New Orleans (USMSY),4940.0,5015.0,Silver
-New York (USNYC),5955.0,6045.0,Silver
-Norfolk (USORF),5960.0,6035.0,Silver
-Oakland (USOAK),6480.0,6840.0,Silver
-Onne,7080.0,8157.0,Silver
-Panama city (PAPTY),5490.0,5930.0,Silver
-Perth (AUPER),4580.0,5115.0,Silver
-Pittsburgh (inland),6790.0,6961.0,Silver
-Portland (Via NY),9290.0,9770.0,Silver
-Port Everglades (USPEF),5960.0,5035.0,Silver
-Prague,3360.0,3745.0,Silver
-"Puerto de Lanzarote, Islas Canarias",,,Silver
-Puerto Barrios,5050.0,5490.0,Silver
-Puerto Cortes,5050.0,5490.0,Silver
-Puerto Moin (CRPMN),4100.0,4510.0,Silver
-Puerto Limon (CRLIO),5050.0,5490.0,Silver
-"Puerto Willemstad, Curazao",7460.0,8650.0,Silver
-Rio de Janeiro (BRGIG),2580.0,2775.0,Silver
-Riyadh,3360.0,4000.0,Silver
-Roma (ITRMX),3715.0,4300.0,Silver
-Rotterdam (NLRTM),2130.0,2295.0,Silver
-Salvador (BRSSA),2550.0,2350.0,Silver
-Santiago (CLSCL),,,Silver
-Santos (BRSSZ),2250.0,2400.0,Silver
-San Antonio (CLSAI),4470.0,4870.0,Silver
-"Santa Cruz, Tenerife",,,Silver
-Santo Domingo,5390.0,5820.0,Silver
-San Jose CR (CRSJO),5790.0,6230.0,Silver
-San Juan (PRSJU),5050.0,5490.0,Silver
-Santo Tomas De Castilla,5615.0,6055.0,Silver
-Suape,2825.0,3535.0,Silver
-Savannah (USSAV),3985.0,4350.0,Silver
-Seatlle (USSEA),9650.0,10290.0,Silver
-Shanghai (CNSHA),2450.0,2290.0,Silver
-Shuwaikh,5000.0,6390.0,Silver
-Singapore (SGSIN),2425.0,2475.0,Silver
-Southampton,3400.0,3975.0,Silver
-Sydney (AUSYD),3600.0,4300.0,Silver
-Tauranga,4300.0,4600.0,Silver
-Toronto Terminal,7600.0,7800.0,Silver
-Valencia (ESVLC),2800.0,3160.0,Silver
-Vancouver (CAVAN),,,Silver
-Veracruz (MXVER),,,Silver
-Winnipeg Terminal,3690.0,4200.0,Silver
+destino,veinte,cuarenta,port_code,source
+Alexandria (EGALY),3550.0,3750.0,,Silver
+Algeciras (ESALG),2873.0,3331.0,,Silver
+Antwerp (BEANR),2630.0,2790.0,,Silver
+Arica (CLARI),6326.0,6890.0,,Silver
+Ashdod (ILASH),3152.0,3650.0,,Silver
+Atlanta (USATL),6695.0,6850.0,,Silver
+Auckland,4310.0,4610.0,,Silver
+Baltimore (USBAL),5890.0,6090.0,,Silver
+Barcelona (ESBCN),2815.0,3160.0,,Silver
+Bassens,,,,Silver
+Bogota (COBOG),,,,Silver
+Bremen,3180.0,3380.0,,Silver
+Bremerhaven (DEBRV),2630.0,2795.0,,Silver
+Brisbane (AUBNE),3510.0,3717.0,,Silver
+Budapest (HUBUD),2510.0,2930.0,,Silver
+Buenaventura,4525.0,5225.0,,Silver
+"Busan, KR - KRPUS",2500.0,2700.0,,Silver
+Cagliaria,,,,Silver
+Callao (PECLL),4660.0,5060.0,,Silver
+Cartagena Port (COCTG),4810.0,5010.0,,Silver
+Caucedo (DOCAU),5055.0,5500.0,,Silver
+Charleston (USCHS),4890.0,5465.0,,Silver
+Charlotte,6695.0,6850.0,,Silver
+Chicago (via NYC),6800.0,7000.0,,Silver
+Cleveland (USCLE),6900.0,7150.0,,Silver
+Constanta,3025.0,3390.0,,Silver
+Copenhagen,2930.0,4050.0,,Silver
+Dallas (USDAL),5690.0,5890.0,,Silver
+Denver (USDEN),6900.0,7390.0,,Silver
+Detroit (USDET),6890.0,7110.0,,Silver
+Dublin (IEDUB),3740.0,4770.0,,Silver
+Edmonton Terminal,,,,Silver
+Estocolmo (SESTO),,,,Silver
+Felixstowe,3610.0,4500.0,,Silver
+Fos sur Mer,2915.0,3360.0,,Silver
+Fremantle,3700.0,4140.0,,Silver
+Genoa (ITGOA),2815.0,3160.0,,Silver
+Gdynia,3230.0,3400.0,,Silver
+Grangemouth,3550.0,4220.0,,Silver
+Guayaquil (ECQYE),4670.0,5060.0,,Silver
+Haifa,3155.0,3650.0,,Silver
+Halifax Port,,,,Silver
+Hamburg (DEHAM),2630.0,2795.0,,Silver
+Houston (USHOU),4890.0,5030.0,,Silver
+Incheon,3090.0,3890.0,,Silver
+Jacksonville,5750.0,6020.0,,Silver
+Jebel Ali (AEJEA),2900.0,4635.0,,Silver
+Karachi (PKKHI),7150.0,7370.0,,Silver
+Keelung (TWKEL),3145.0,3735.0,,Silver
+Klang (MYPKG),3745.0,4625.0,,Silver
+La Guaira,,,,Silver
+Le Havre (FRLEH),2630.0,2795.0,,Silver
+Lagos,,,,Silver
+Lisboa (PTLIS),2870.0,3310.0,,Silver
+Lyttelton,4515.0,5010.0,,Silver
+Livorno (ITLIV),2565.0,3160.0,,Silver
+London Gateway (GBLGP),2600.0,2730.0,,Silver
+Long Beach CA (USLGB),5135.0,5385.0,,Silver
+Los Angeles (USLAX),5135.0,5385.0,,Silver
+Louisiana (USLUA),7520.0,7770.0,,Silver
+Luxemburgo,3910.0,4075.0,,Silver
+Madrid (ESMAD),3090.0,3590.0,,Silver
+Malaga (ESAGP),,,,Silver
+Manila,2585.0,2775.0,,Silver
+Manzanillo (PAMIT),5050.0,5490.0,,Silver
+Manzanillo (México),5695.0,7635.0,,Silver
+Melbourne,3310.0,3560.0,,Silver
+Miami,4940.0,5015.0,,Silver
+Milan,3450.0,3799.0,,Silver
+Montoir,3465.0,4450.0,,Silver
+Montreal Port,,,,Silver
+Nairobi Terminal,,,,Silver
+Napoles,2930.0,3920.0,,Silver
+Nassau Bahamas,12290.0,15970.0,,Silver
+New Delhi,5900.0,7360.0,,Silver
+New Orleans (USMSY),4940.0,5015.0,,Silver
+New York (USNYC),5955.0,6045.0,,Silver
+Norfolk (USORF),5960.0,6035.0,,Silver
+Oakland (USOAK),6480.0,6840.0,,Silver
+Onne,7080.0,8157.0,,Silver
+Panama city (PAPTY),5490.0,5930.0,,Silver
+Perth (AUPER),4580.0,5115.0,,Silver
+Pittsburgh (inland),6790.0,6961.0,,Silver
+Portland (Via NY),9290.0,9770.0,,Silver
+Port Everglades (USPEF),5960.0,5035.0,,Silver
+Prague,3360.0,3745.0,,Silver
+"Puerto de Lanzarote, Islas Canarias",,,,Silver
+Puerto Barrios,5050.0,5490.0,,Silver
+Puerto Cortes,5050.0,5490.0,,Silver
+Puerto Moin (CRPMN),4100.0,4510.0,,Silver
+Puerto Limon (CRLIO),5050.0,5490.0,,Silver
+"Puerto Willemstad, Curazao",7460.0,8650.0,,Silver
+Rio de Janeiro (BRGIG),2580.0,2775.0,,Silver
+Riyadh,3360.0,4000.0,,Silver
+Roma (ITRMX),3715.0,4300.0,,Silver
+Rotterdam (NLRTM),2130.0,2295.0,,Silver
+Salvador (BRSSA),2550.0,2350.0,,Silver
+Santiago (CLSCL),,,,Silver
+Santos (BRSSZ),2250.0,2400.0,,Silver
+San Antonio (CLSAI),4470.0,4870.0,,Silver
+"Santa Cruz, Tenerife",,,,Silver
+Santo Domingo,5390.0,5820.0,,Silver
+San Jose CR (CRSJO),5790.0,6230.0,,Silver
+San Juan (PRSJU),5050.0,5490.0,,Silver
+Santo Tomas De Castilla,5615.0,6055.0,,Silver
+Suape,2825.0,3535.0,,Silver
+Savannah (USSAV),3985.0,4350.0,,Silver
+Seatlle (USSEA),9650.0,10290.0,,Silver
+Shanghai (CNSHA),2450.0,2290.0,,Silver
+Shuwaikh,5000.0,6390.0,,Silver
+Singapore (SGSIN),2425.0,2475.0,,Silver
+Southampton,3400.0,3975.0,,Silver
+Sydney (AUSYD),3600.0,4300.0,,Silver
+Tauranga,4300.0,4600.0,,Silver
+Toronto Terminal,7600.0,7800.0,,Silver
+Valencia (ESVLC),2800.0,3160.0,,Silver
+Vancouver (CAVAN),,,,Silver
+Veracruz (MXVER),,,,Silver
+Winnipeg Terminal,3690.0,4200.0,,Silver

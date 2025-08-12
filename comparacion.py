@@ -3,6 +3,28 @@ import numpy as np
 import re
 from difflib import SequenceMatcher
 
+def extract_port_code(destination):
+    """
+    Extract port code from destination string.
+    Port codes are typically 4 uppercase letters in parentheses.
+    """
+    if pd.isna(destination):
+        return ""
+    
+    dest = str(destination).strip()
+    
+    # Look for pattern like (ABCD) where ABCD is 4 uppercase letters
+    port_match = re.search(r'\(([A-Z]{4})\)', dest)
+    if port_match:
+        return port_match.group(1)
+    
+    # Alternative pattern: look for 4 consecutive uppercase letters
+    alt_match = re.search(r'\b([A-Z]{4})\b', dest)
+    if alt_match:
+        return alt_match.group(1)
+    
+    return ""
+
 def extract_city_name(destination):
     """
     Extract the main city name from destination string.
@@ -83,6 +105,11 @@ if silver['veinte'].dtype == 'object':
 if silver['cuarenta'].dtype == 'object':
     silver['cuarenta'] = silver['cuarenta'].replace({'\$': '', ',': ''}, regex=True).astype(float)
 
+# Add port code extraction to all datasets
+airesds['port_code'] = airesds['destino'].apply(extract_port_code)
+fcl['port_code'] = fcl['destino'].apply(extract_port_code)
+silver['port_code'] = silver['destino'].apply(extract_port_code)
+
 # Add source columns
 airesds['source'] = 'AiresDS'
 fcl['source'] = 'FCL'
@@ -107,12 +134,15 @@ for destino in all_destinations:
     if destino in matched_destinations:
         continue  # Skip if already processed as part of a match
     
+    # Extract port code for current destination
+    current_port_code = extract_port_code(destino)
+    
     # Try exact match first
     aires_data = airesds[airesds['destino'] == destino]
     fcl_data = fcl[fcl['destino'] == destino]
     silver_data = silver[silver['destino'] == destino]
     
-    # If no exact matches, try fuzzy matching
+    # If no exact matches, try fuzzy matching (city name only, not port code)
     aires_match = destino if len(aires_data) > 0 else find_best_match(destino, airesds_destinations)
     fcl_match = destino if len(fcl_data) > 0 else find_best_match(destino, fcl_destinations)
     silver_match = destino if len(silver_data) > 0 else find_best_match(destino, silver_destinations)
@@ -150,6 +180,15 @@ for destino in all_destinations:
             primary_destino = f"{destino} / {silver_match}"
         
         row = {'destino': primary_destino}
+        
+        # Add port code information for visualization
+        row['port_code'] = current_port_code
+        if not current_port_code and aires_match:
+            row['port_code'] = extract_port_code(aires_match)
+        if not row['port_code'] and fcl_match:
+            row['port_code'] = extract_port_code(fcl_match)
+        if not row['port_code'] and silver_match:
+            row['port_code'] = extract_port_code(silver_match)
         
         # Store original destination names for reference
         row['aires_original'] = aires_match if has_aires else None
@@ -237,6 +276,7 @@ for destino in all_destinations:
         no_match_row = {
             'destino': destino,
             'original_destino': original_dest,
+            'port_code': current_port_code,
             'source': source_name,
             'veinte': data.iloc[0]['veinte'] if len(data) > 0 else np.nan,
             'cuarenta': data.iloc[0]['cuarenta'] if len(data) > 0 else np.nan,
