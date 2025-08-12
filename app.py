@@ -67,11 +67,10 @@ with tab1:
             # Filter dataframe based on port selection
             if port_filter != "Todos los puertos":
                 filtered_comparison_df = comparison_df[comparison_df['port_code'] == port_filter]
-                destinos_disponibles = sorted(filtered_comparison_df['destino'].unique().tolist())
             else:
                 filtered_comparison_df = comparison_df
-                destinos_disponibles = sorted(comparison_df['destino'].unique().tolist())
             
+            destinos_disponibles = sorted(filtered_comparison_df['destino'].unique().tolist())
             search_destino = st.selectbox(
                 "Seleccionar destino para comparar precios:",
                 options=["Seleccione un destino..."] + destinos_disponibles,
@@ -86,7 +85,22 @@ with tab1:
             index=0
         )
     
-    if search_destino != "Seleccione un destino...":
+    # Show results for both port filter and destination selection
+    if port_filter != "Todos los puertos" and search_destino == "Seleccione un destino...":
+        # Show all destinations for selected port
+        if not filtered_comparison_df.empty:
+            st.subheader(f"Destinos en puerto {port_filter}")
+            
+            # Display filtered destinations table
+            display_columns = ['destino', 'best_price_20', 'best_provider_20', 'best_price_40', 'best_provider_40', 'price_diff_20_pct', 'price_diff_40_pct']
+            port_results = filtered_comparison_df[display_columns].copy()
+            port_results.columns = ['Destino', 'Mejor Precio 20\'', 'Mejor Proveedor 20\'', 'Mejor Precio 40\'', 'Mejor Proveedor 40\'', 'Diferencia % 20\'', 'Diferencia % 40\'']
+            port_results = port_results.round(2)
+            st.dataframe(port_results, use_container_width=True)
+        else:
+            st.info(f"No se encontraron destinos para el puerto {port_filter}")
+    
+    elif search_destino != "Seleccione un destino...":
         search_results = filtered_comparison_df[filtered_comparison_df['destino'] == search_destino]
         if not search_results.empty:
             row = search_results.iloc[0]
@@ -97,7 +111,6 @@ with tab1:
 
             # Score cards: Mejor proveedor y precios
             col1, col2, col3 = st.columns(3)
-            row = search_results.iloc[0]
 
             def money_fmt(val):
                 if pd.isna(val):
@@ -141,68 +154,9 @@ with tab1:
 
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
-
-    if not filtered_comparison_df.empty:
-        # Gráfico de dispersión de precios
-        st.subheader("Análisis de Dispersión de Precios")
-        
-        fig_scatter = make_subplots(
-            rows=1, cols=2,
-            subplot_titles=('Contenedor 20\'', 'Contenedor 40\''),
-            specs=[[{"secondary_y": False}, {"secondary_y": False}]]
-        )
-        
-        # Create hover text with port codes
-        hover_text_20 = []
-        hover_text_40 = []
-        for _, row in filtered_comparison_df.iterrows():
-            port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
-            hover_text_20.append(f"{row['destino']}{port_info}")
-            hover_text_40.append(f"{row['destino']}{port_info}")
-        
-        # Scatter plot para 20'
-        fig_scatter.add_trace(
-            go.Scatter(
-                x=filtered_comparison_df['best_price_20'],
-                y=filtered_comparison_df['price_diff_20_pct'],
-                mode='markers',
-                name='20\'',
-                text=hover_text_20,
-                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
-                marker=dict(size=8, color='blue', opacity=0.6)
-            ),
-            row=1, col=1
-        )
-        
-        # Scatter plot para 40'
-        fig_scatter.add_trace(
-            go.Scatter(
-                x=filtered_comparison_df['best_price_40'],
-                y=filtered_comparison_df['price_diff_40_pct'],
-                mode='markers',
-                name='40\'',
-                text=hover_text_40,
-                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
-                marker=dict(size=8, color='red', opacity=0.6)
-            ),
-            row=1, col=2
-        )
-        
-        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=1)
-        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=2)
-        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=1)
-        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=2)
-        
-        fig_scatter.update_layout(
-            title="Relación entre Precio Base y Diferencia Porcentual",
-            height=500,
-            showlegend=False
-        )
-        
-        st.plotly_chart(fig_scatter, use_container_width=True)
     
     else:
-        st.warning("No hay datos que mostrar.")
+        st.info("Seleccione un puerto o destino para ver la comparación de precios.")
 
 with tab2:
     st.header("Resumen")
@@ -233,6 +187,64 @@ with tab2:
             st.metric("Diferencia Máxima (%)", "N/A")
 
     if not comparison_df.empty:
+        # Gráfico de dispersión de precios
+        st.subheader("Análisis de Dispersión de Precios")
+        
+        fig_scatter = make_subplots(
+            rows=1, cols=2,
+            subplot_titles=('Contenedor 20\'', 'Contenedor 40\''),
+            specs=[[{"secondary_y": False}, {"secondary_y": False}]]
+        )
+        
+        # Create hover text with port codes
+        hover_text_20 = []
+        hover_text_40 = []
+        for _, row in comparison_df.iterrows():
+            port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
+            hover_text_20.append(f"{row['destino']}{port_info}")
+            hover_text_40.append(f"{row['destino']}{port_info}")
+        
+        # Scatter plot para 20'
+        fig_scatter.add_trace(
+            go.Scatter(
+                x=comparison_df['best_price_20'],
+                y=comparison_df['price_diff_20_pct'],
+                mode='markers',
+                name='20\'',
+                text=hover_text_20,
+                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
+                marker=dict(size=8, color='blue', opacity=0.6)
+            ),
+            row=1, col=1
+        )
+        
+        # Scatter plot para 40'
+        fig_scatter.add_trace(
+            go.Scatter(
+                x=comparison_df['best_price_40'],
+                y=comparison_df['price_diff_40_pct'],
+                mode='markers',
+                name='40\'',
+                text=hover_text_40,
+                hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
+                marker=dict(size=8, color='red', opacity=0.6)
+            ),
+            row=1, col=2
+        )
+        
+        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=1)
+        fig_scatter.update_xaxes(title_text="Mejor Precio (USD)", row=1, col=2)
+        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=1)
+        fig_scatter.update_yaxes(title_text="Diferencia de Precio (%)", row=1, col=2)
+        
+        fig_scatter.update_layout(
+            title="Relación entre Precio Base y Diferencia Porcentual",
+            height=500,
+            showlegend=False
+        )
+        
+        st.plotly_chart(fig_scatter, use_container_width=True)
+
         # Top 10 diferencias más grandes
         st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
         
