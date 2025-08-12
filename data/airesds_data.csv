@@ -1,75 +1,75 @@
 destino,veinte,cuarenta,port_code,source
-Abu Dhabi - AEAUH,4754.0,5998.0,,AiresDS
-Alexandria (EGALY),3713.0,4865.0,,AiresDS
-Algeciras (ESALG),1717.0,2114.0,,AiresDS
-Antwerp (BEANR),1485.0,1600.0,,AiresDS
-Arica (CLARI),5281.0,5797.0,,AiresDS
-Ashdod (ILASH),2007.0,2444.0,,AiresDS
-Auckland (NZAKL),3165.0,3412.0,,AiresDS
-Baltimore (USBAL),2670.0,2720.0,,AiresDS
-Barcelona (ESBCN),1210.0,1500.0,,AiresDS
-Bogota (COBOG),3415.0,4465.0,,AiresDS
-Bremerhaven (DEBRV),1485.0,1600.0,,AiresDS
-Brisbane (AUBNE),2365.0,2362.0,,AiresDS
-Buenaventura (COBUN),3475.0,4129.0,,AiresDS
-Callao (PECLL),3616.0,3961.0,,AiresDS
-Cartagena Port Colombia (COCTG),3019.0,3118.0,,AiresDS
-Caucedo (DOCAU),4008.0,4397.0,,AiresDS
-Charleston (USCHS),2670.0,2720.0,,AiresDS
-Constanta (ROCND),1867.0,2264.0,,AiresDS
-Copenhagen (DKCPH),1785.0,2866.0,,AiresDS
-Dublin (IEDUB),2595.0,3569.0,,AiresDS
-Felixstowe (GBFXT),2456.0,3282.0,,AiresDS
-Fos sur Mer (FRFOS),1767.0,2164.0,,AiresDS
-Genoa (ITGOA),1667.0,1964.0,,AiresDS
-Gdynia (PLGDY),1885.0,2000.0,,AiresDS
-Guayaquil (ECGYE),3616.0,3961.0,,AiresDS
-Haifa (ILHFA),2007.0,2444.0,,AiresDS
-Hamburg (DEHAM),1485.0,1600.0,,AiresDS
-Houston (USHOU),3795.0,3820.0,,AiresDS
-Incheon (KRINC),856.0,861.0,,AiresDS
-Jacksonville FL (USJAX),4795.0,4820.0,,AiresDS
-Jebel Ali (AEJEA),1462.0,2904.0,,AiresDS
-Karachi (PKKHI),3455.0,6272.0,,AiresDS
-Keelung (TWKEL),2085.0,2625.0,,AiresDS
-Klang (MYPKG),1199.0,3528.0,,AiresDS
-La Guaira (VELAG),5293.0,5782.0,,AiresDS
-Le Havre (FRLEH),1289.0,1186.0,,AiresDS
-Lisboa (PTLIS),1717.0,2114.0,,AiresDS
-Lyttelton (NZLYT),3365.0,3812.0,,AiresDS
-Livorno (ITLIV),1262.0,1964.0,,AiresDS
-London Gateway (GBLGP),1453.0,1536.0,,AiresDS
-Los Angeles (USLAX),3970.0,4170.0,,AiresDS
-Malaga (ESAGP),2963.0,3804.0,,AiresDS
-Manila (PHMNL),1539.0,1678.0,,AiresDS
-Manzanillo (PAMIT),4008.0,4397.0,,AiresDS
-Manzanillo (MXZLO) (México),4650.0,6539.0,,AiresDS
-Montoir DE BRETAGNE (FRMTX),2319.0,3257.0,,AiresDS
-"Montreal Port, CA (CAMTR)",6062.0,6201.0,,AiresDS
-Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),10770.0,13993.0,,AiresDS
-New Orleans (USMSY),3795.0,3820.0,,AiresDS
-New York (USNYC),4795.0,4820.0,,AiresDS
-Norfolk (USORF),4795.0,4820.0,,AiresDS
-Onne (NGONN),2410.0,6962.0,,AiresDS
-Port Everglades (USPEF),4795.0,4820.0,,AiresDS
+Abu Dhabi - AEAUH,4754.0,5998.0,AEAUH,AiresDS
+Alexandria (EGALY),3713.0,4865.0,EGALY,AiresDS
+Algeciras (ESALG),1717.0,2114.0,ESALG,AiresDS
+Antwerp (BEANR),1485.0,1600.0,BEANR,AiresDS
+Arica (CLARI),5281.0,5797.0,CLARI,AiresDS
+Ashdod (ILASH),2007.0,2444.0,ILASH,AiresDS
+Auckland (NZAKL),3165.0,3412.0,NZAKL,AiresDS
+Baltimore (USBAL),2670.0,2720.0,USBAL,AiresDS
+Barcelona (ESBCN),1210.0,1500.0,ESBCN,AiresDS
+Bogota (COBOG),3415.0,4465.0,COBOG,AiresDS
+Bremerhaven (DEBRV),1485.0,1600.0,DEBRV,AiresDS
+Brisbane (AUBNE),2365.0,2362.0,AUBNE,AiresDS
+Buenaventura (COBUN),3475.0,4129.0,COBUN,AiresDS
+Callao (PECLL),3616.0,3961.0,PECLL,AiresDS
+Cartagena Port Colombia (COCTG),3019.0,3118.0,COCTG,AiresDS
+Caucedo (DOCAU),4008.0,4397.0,DOCAU,AiresDS
+Charleston (USCHS),2670.0,2720.0,USCHS,AiresDS
+Constanta (ROCND),1867.0,2264.0,ROCND,AiresDS
+Copenhagen (DKCPH),1785.0,2866.0,DKCPH,AiresDS
+Dublin (IEDUB),2595.0,3569.0,IEDUB,AiresDS
+Felixstowe (GBFXT),2456.0,3282.0,GBFXT,AiresDS
+Fos sur Mer (FRFOS),1767.0,2164.0,FRFOS,AiresDS
+Genoa (ITGOA),1667.0,1964.0,ITGOA,AiresDS
+Gdynia (PLGDY),1885.0,2000.0,PLGDY,AiresDS
+Guayaquil (ECGYE),3616.0,3961.0,ECGYE,AiresDS
+Haifa (ILHFA),2007.0,2444.0,ILHFA,AiresDS
+Hamburg (DEHAM),1485.0,1600.0,DEHAM,AiresDS
+Houston (USHOU),3795.0,3820.0,USHOU,AiresDS
+Incheon (KRINC),856.0,861.0,KRINC,AiresDS
+Jacksonville FL (USJAX),4795.0,4820.0,USJAX,AiresDS
+Jebel Ali (AEJEA),1462.0,2904.0,AEJEA,AiresDS
+Karachi (PKKHI),3455.0,6272.0,PKKHI,AiresDS
+Keelung (TWKEL),2085.0,2625.0,TWKEL,AiresDS
+Klang (MYPKG),1199.0,3528.0,MYPKG,AiresDS
+La Guaira (VELAG),5293.0,5782.0,VELAG,AiresDS
+Le Havre (FRLEH),1289.0,1186.0,FRLEH,AiresDS
+Lisboa (PTLIS),1717.0,2114.0,PTLIS,AiresDS
+Lyttelton (NZLYT),3365.0,3812.0,NZLYT,AiresDS
+Livorno (ITLIV),1262.0,1964.0,ITLIV,AiresDS
+London Gateway (GBLGP),1453.0,1536.0,GBLGP,AiresDS
+Los Angeles (USLAX),3970.0,4170.0,USLAX,AiresDS
+Malaga (ESAGP),2963.0,3804.0,ESAGP,AiresDS
+Manila (PHMNL),1539.0,1678.0,PHMNL,AiresDS
+Manzanillo (PAMIT),4008.0,4397.0,PAMIT,AiresDS
+Manzanillo (MXZLO) (México),4650.0,6539.0,MXZLO,AiresDS
+Montoir DE BRETAGNE (FRMTX),2319.0,3257.0,FRMTX,AiresDS
+"Montreal Port, CA (CAMTR)",6062.0,6201.0,CAMTR,AiresDS
+Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),10770.0,13993.0,BSNAS,AiresDS
+New Orleans (USMSY),3795.0,3820.0,USMSY,AiresDS
+New York (USNYC),4795.0,4820.0,USNYC,AiresDS
+Norfolk (USORF),4795.0,4820.0,USORF,AiresDS
+Onne (NGONN),2410.0,6962.0,NGONN,AiresDS
+Port Everglades (USPEF),4795.0,4820.0,USPEF,AiresDS
 "Puerto de Lanzarote, Islas Canarias (Arrecife de lanzarote)",3338.0,4285.0,,AiresDS
-Puerto Barrios (GTPBR),2970.0,3320.0,,AiresDS
-Puerto Cortes (HNPCR),3508.0,3897.0,,AiresDS
-Puerto Moin (CRPMN),3045.0,3126.0,,AiresDS
-Puerto Limon (CRLIO),2970.0,3320.0,,AiresDS
-Riyadh (SARUH),2662.0,3354.0,,AiresDS
-Rotterdam (NLRTM),1485.0,1600.0,,AiresDS
-Santos (BRSSZ),889.0,1048.0,,AiresDS
-San Antonio (CLSAI),3616.0,3961.0,,AiresDS
-Santa Cruz Tenerife (ESSCT),1772.0,1540.0,,AiresDS
-San Juan (PRSJU),3508.0,3897.0,,AiresDS
-SUAPE (BRSUA),1279.0,1938.0,,AiresDS
-Shanghai (CNSHA),1426.0,1732.0,,AiresDS
-Shuwaikh (KWSWK),3954.0,5298.0,,AiresDS
-Singapore (SGSIN),970.0,1020.0,,AiresDS
-Southampton (GBSOU),2256.0,2782.0,,AiresDS
-Sydney (AUSYD),2165.0,2362.0,,AiresDS
-Tauranga (NZTRG),3165.0,3412.0,,AiresDS
-Valencia (ESVLC),1667.0,1964.0,,AiresDS
-Vancouver (CAVAN),4854.0,5184.0,,AiresDS
-Veracruz (MXVER),3409.0,3158.0,,AiresDS
+Puerto Barrios (GTPBR),2970.0,3320.0,GTPBR,AiresDS
+Puerto Cortes (HNPCR),3508.0,3897.0,HNPCR,AiresDS
+Puerto Moin (CRPMN),3045.0,3126.0,CRPMN,AiresDS
+Puerto Limon (CRLIO),2970.0,3320.0,CRLIO,AiresDS
+Riyadh (SARUH),2662.0,3354.0,SARUH,AiresDS
+Rotterdam (NLRTM),1485.0,1600.0,NLRTM,AiresDS
+Santos (BRSSZ),889.0,1048.0,BRSSZ,AiresDS
+San Antonio (CLSAI),3616.0,3961.0,CLSAI,AiresDS
+Santa Cruz Tenerife (ESSCT),1772.0,1540.0,ESSCT,AiresDS
+San Juan (PRSJU),3508.0,3897.0,PRSJU,AiresDS
+SUAPE (BRSUA),1279.0,1938.0,BRSUA,AiresDS
+Shanghai (CNSHA),1426.0,1732.0,CNSHA,AiresDS
+Shuwaikh (KWSWK),3954.0,5298.0,KWSWK,AiresDS
+Singapore (SGSIN),970.0,1020.0,SGSIN,AiresDS
+Southampton (GBSOU),2256.0,2782.0,GBSOU,AiresDS
+Sydney (AUSYD),2165.0,2362.0,AUSYD,AiresDS
+Tauranga (NZTRG),3165.0,3412.0,NZTRG,AiresDS
+Valencia (ESVLC),1667.0,1964.0,ESVLC,AiresDS
+Vancouver (CAVAN),4854.0,5184.0,CAVAN,AiresDS
+Veracruz (MXVER),3409.0,3158.0,MXVER,AiresDS

@@ -6,22 +6,32 @@ from difflib import SequenceMatcher
 def extract_port_code(destination):
     """
     Extract port code from destination string.
-    Port codes are typically 4 uppercase letters in parentheses.
+    Port codes can be in various formats: (ABCD), - ABCDE, or just ABCDE at the end.
     """
     if pd.isna(destination):
         return ""
     
     dest = str(destination).strip()
     
-    # Look for pattern like (ABCD) where ABCD is 4 uppercase letters
-    port_match = re.search(r'\(([A-Z]{4})\)', dest)
+    # Pattern 1: Port code in parentheses like "Alexandria (EGALY)"
+    port_match = re.search(r'\(([A-Z]{4,5})\)', dest)
     if port_match:
         return port_match.group(1)
     
-    # Alternative pattern: look for 4 consecutive uppercase letters
-    alt_match = re.search(r'\b([A-Z]{4})\b', dest)
-    if alt_match:
-        return alt_match.group(1)
+    # Pattern 2: Port code after dash like "Abu Dhabi - AEAUH"
+    dash_match = re.search(r'\s-\s([A-Z]{4,5})$', dest)
+    if dash_match:
+        return dash_match.group(1)
+    
+    # Pattern 3: Port code at the end without separators
+    end_match = re.search(r'\s([A-Z]{4,5})$', dest)
+    if end_match:
+        return end_match.group(1)
+    
+    # Pattern 4: Just look for any 4-5 uppercase letters
+    general_match = re.search(r'\b([A-Z]{4,5})\b', dest)
+    if general_match:
+        return general_match.group(1)
     
     return ""
 
