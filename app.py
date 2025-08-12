@@ -40,70 +40,14 @@ st.markdown("### Análisis comparativo de precios entre AiresDS, FCL y Silver")
 
 # Crear tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "Comparación de Precios",
     "Resumen", 
-    "Comparación de Precios", 
     "Análisis por Proveedor", 
     "Destinos sin Coincidencias",
     "Datos Detallados"
 ])
 
 with tab1:
-    st.header("Resumen")
-    
-    # Métricas principales
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        total_destinos = len(comparison_df) if not comparison_df.empty else 0
-        st.metric("Total Destinos Comparados", total_destinos)
-    
-    with col2:
-        destinos_sin_match = len(no_matches_df) if not no_matches_df.empty else 0
-        st.metric("Destinos sin Coincidencias", destinos_sin_match)
-    
-    with col3:
-        if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
-            avg_diff = comparison_df['price_diff_20_pct'].mean()
-            st.metric("Diferencia Promedio (%)", f"{avg_diff:.1f}%")
-        else:
-            st.metric("Diferencia Promedio (%)", "N/A")
-    
-    with col4:
-        if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
-            max_diff = comparison_df['price_diff_20_pct'].max()
-            st.metric("Diferencia Máxima (%)", f"{max_diff:.1f}%")
-        else:
-            st.metric("Diferencia Máxima (%)", "N/A")
-    
-    # Gráfico de rendimiento por proveedor
-    if not comparison_df.empty:
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("Mejores Precios por Proveedor (Contenedor 20')")
-            provider_counts_20 = comparison_df['best_provider_20'].value_counts()
-            
-            fig_provider_20 = px.pie(
-                values=provider_counts_20.values,
-                names=provider_counts_20.index,
-                title="Distribución de Mejores Precios - Contenedor 20'"
-            )
-            fig_provider_20.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig_provider_20, use_container_width=True)
-        
-        with col2:
-            st.subheader("Mejores Precios por Proveedor (Contenedor 40')")
-            provider_counts_40 = comparison_df['best_provider_40'].value_counts()
-            
-            fig_provider_40 = px.pie(
-                values=provider_counts_40.values,
-                names=provider_counts_40.index,
-                title="Distribución de Mejores Precios - Contenedor 40'"
-            )
-            fig_provider_40.update_traces(textposition='inside', textinfo='percent+label')
-            st.plotly_chart(fig_provider_40, use_container_width=True)
-
-with tab2:
     st.header("Comparación de Precios")
 
     # Port code filter
@@ -199,27 +143,6 @@ with tab2:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
 
     if not filtered_comparison_df.empty:
-        # Top 10 diferencias más grandes
-        st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.write("**Contenedor 20'**")
-            top_diff_20 = filtered_comparison_df.nlargest(10, 'price_diff_20_pct')[
-                ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
-            ].round(2)
-            top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-            st.dataframe(top_diff_20, use_container_width=True)
-        
-        with col2:
-            st.write("**Contenedor 40'**")
-            top_diff_40 = filtered_comparison_df.nlargest(10, 'price_diff_40_pct')[
-                ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
-            ].round(2)
-            top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-            st.dataframe(top_diff_40, use_container_width=True)
-        
         # Gráfico de dispersión de precios
         st.subheader("Análisis de Dispersión de Precios")
         
@@ -280,6 +203,84 @@ with tab2:
     
     else:
         st.warning("No hay datos que mostrar.")
+
+with tab2:
+    st.header("Resumen")
+    
+    # Métricas principales
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        total_destinos = len(comparison_df) if not comparison_df.empty else 0
+        st.metric("Total Destinos Comparados", total_destinos)
+    
+    with col2:
+        destinos_sin_match = len(no_matches_df) if not no_matches_df.empty else 0
+        st.metric("Destinos sin Coincidencias", destinos_sin_match)
+    
+    with col3:
+        if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
+            avg_diff = comparison_df['price_diff_20_pct'].mean()
+            st.metric("Diferencia Promedio (%)", f"{avg_diff:.1f}%")
+        else:
+            st.metric("Diferencia Promedio (%)", "N/A")
+    
+    with col4:
+        if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
+            max_diff = comparison_df['price_diff_20_pct'].max()
+            st.metric("Diferencia Máxima (%)", f"{max_diff:.1f}%")
+        else:
+            st.metric("Diferencia Máxima (%)", "N/A")
+
+    if not comparison_df.empty:
+        # Top 10 diferencias más grandes
+        st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.write("**Contenedor 20'**")
+            top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
+                ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
+            ].round(2)
+            top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            st.dataframe(top_diff_20, use_container_width=True)
+        
+        with col2:
+            st.write("**Contenedor 40'**")
+            top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
+                ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
+            ].round(2)
+            top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            st.dataframe(top_diff_40, use_container_width=True)
+    
+    # Gráfico de rendimiento por proveedor
+    if not comparison_df.empty:
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("Mejores Precios por Proveedor (Contenedor 20')")
+            provider_counts_20 = comparison_df['best_provider_20'].value_counts()
+            
+            fig_provider_20 = px.pie(
+                values=provider_counts_20.values,
+                names=provider_counts_20.index,
+                title="Distribución de Mejores Precios - Contenedor 20'"
+            )
+            fig_provider_20.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig_provider_20, use_container_width=True)
+        
+        with col2:
+            st.subheader("Mejores Precios por Proveedor (Contenedor 40')")
+            provider_counts_40 = comparison_df['best_provider_40'].value_counts()
+            
+            fig_provider_40 = px.pie(
+                values=provider_counts_40.values,
+                names=provider_counts_40.index,
+                title="Distribución de Mejores Precios - Contenedor 40'"
+            )
+            fig_provider_40.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig_provider_40, use_container_width=True)
 
 with tab3:
     st.header("Análisis por Proveedor")
