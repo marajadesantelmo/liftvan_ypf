@@ -12,7 +12,7 @@ st.set_page_config(
     page_title="Dashboard de Comparación de Precios Marítimos",
     page_icon="🚢",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Función para cargar datos
@@ -106,18 +106,50 @@ with tab1:
 with tab2:
     st.header("Comparación de Precios")
 
-    # Buscador por destino
-    destinos_disponibles = sorted(comparison_df['destino'].unique().tolist()) if not comparison_df.empty else []
-    search_destino = st.selectbox(
-        "Seleccionar destino para comparar precios:",
-        options=["Seleccione un destino..."] + destinos_disponibles,
-        index=0
-    )
+    # Port code filter
+    if not comparison_df.empty and 'port_code' in comparison_df.columns:
+        available_ports = sorted([code for code in comparison_df['port_code'].unique() if code])
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            port_filter = st.selectbox(
+                "Filtrar por código de puerto:",
+                options=["Todos los puertos"] + available_ports,
+                index=0
+            )
+        
+        with col2:
+            # Filter dataframe based on port selection
+            if port_filter != "Todos los puertos":
+                filtered_comparison_df = comparison_df[comparison_df['port_code'] == port_filter]
+                destinos_disponibles = sorted(filtered_comparison_df['destino'].unique().tolist())
+            else:
+                filtered_comparison_df = comparison_df
+                destinos_disponibles = sorted(comparison_df['destino'].unique().tolist())
+            
+            search_destino = st.selectbox(
+                "Seleccionar destino para comparar precios:",
+                options=["Seleccione un destino..."] + destinos_disponibles,
+                index=0
+            )
+    else:
+        filtered_comparison_df = comparison_df
+        destinos_disponibles = sorted(comparison_df['destino'].unique().tolist()) if not comparison_df.empty else []
+        search_destino = st.selectbox(
+            "Seleccionar destino para comparar precios:",
+            options=["Seleccione un destino..."] + destinos_disponibles,
+            index=0
+        )
     
     if search_destino != "Seleccione un destino...":
-        search_results = comparison_df[comparison_df['destino'] == search_destino]
+        search_results = filtered_comparison_df[filtered_comparison_df['destino'] == search_destino]
         if not search_results.empty:
-            st.subheader(f"Resultados para: {search_destino}")
+            row = search_results.iloc[0]
+            
+            # Display port code if available
+            port_code_display = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
+            st.subheader(f"Resultados para: {search_destino}{port_code_display}")
 
             # Score cards: Mejor proveedor y precios
             col1, col2, col3 = st.columns(3)
@@ -166,7 +198,7 @@ with tab2:
         else:
             st.info("No se encontraron destinos que coincidan con la búsqueda.")
 
-    if not comparison_df.empty:
+    if not filtered_comparison_df.empty:
         # Top 10 diferencias más grandes
         st.subheader("Top 10 Destinos con Mayores Diferencias de Precio")
         
@@ -174,19 +206,20 @@ with tab2:
         
         with col1:
             st.write("**Contenedor 20'**")
-            top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
-                ['destino', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
+            top_diff_20 = filtered_comparison_df.nlargest(10, 'price_diff_20_pct')[
+                ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
             ].round(2)
-            top_diff_20.columns = ['Destino', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
             st.dataframe(top_diff_20, use_container_width=True)
         
         with col2:
             st.write("**Contenedor 40'**")
-            top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
-                ['destino', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
+            top_diff_40 = filtered_comparison_df.nlargest(10, 'price_diff_40_pct')[
+                ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
             ].round(2)
-            top_diff_40.columns = ['Destino', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
             st.dataframe(top_diff_40, use_container_width=True)
+        
         # Gráfico de dispersión de precios
         st.subheader("Análisis de Dispersión de Precios")
         
@@ -196,14 +229,22 @@ with tab2:
             specs=[[{"secondary_y": False}, {"secondary_y": False}]]
         )
         
+        # Create hover text with port codes
+        hover_text_20 = []
+        hover_text_40 = []
+        for _, row in filtered_comparison_df.iterrows():
+            port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
+            hover_text_20.append(f"{row['destino']}{port_info}")
+            hover_text_40.append(f"{row['destino']}{port_info}")
+        
         # Scatter plot para 20'
         fig_scatter.add_trace(
             go.Scatter(
-                x=comparison_df['best_price_20'],
-                y=comparison_df['price_diff_20_pct'],
+                x=filtered_comparison_df['best_price_20'],
+                y=filtered_comparison_df['price_diff_20_pct'],
                 mode='markers',
                 name='20\'',
-                text=comparison_df['destino'],
+                text=hover_text_20,
                 hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
                 marker=dict(size=8, color='blue', opacity=0.6)
             ),
@@ -213,11 +254,11 @@ with tab2:
         # Scatter plot para 40'
         fig_scatter.add_trace(
             go.Scatter(
-                x=comparison_df['best_price_40'],
-                y=comparison_df['price_diff_40_pct'],
+                x=filtered_comparison_df['best_price_40'],
+                y=filtered_comparison_df['price_diff_40_pct'],
                 mode='markers',
                 name='40\'',
-                text=comparison_df['destino'],
+                text=hover_text_40,
                 hovertemplate='<b>%{text}</b><br>Mejor Precio: $%{x}<br>Diferencia: %{y:.1f}%<extra></extra>',
                 marker=dict(size=8, color='red', opacity=0.6)
             ),
@@ -311,8 +352,47 @@ with tab4:
     if not no_matches_df.empty:
         st.write(f"Total de destinos disponibles en una sola fuente: **{len(no_matches_df)}**")
         
+        # Port code filter for no matches
+        if 'port_code' in no_matches_df.columns:
+            available_ports_no_match = sorted([code for code in no_matches_df['port_code'].unique() if code])
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                port_filter_no_match = st.selectbox(
+                    "Filtrar por código de puerto:",
+                    options=["Todos"] + available_ports_no_match,
+                    key="port_filter_no_match"
+                )
+            
+            with col2:
+                fuentes_disponibles = no_matches_df['source'].unique().tolist()
+                fuente_selected = st.selectbox(
+                    "Filtrar por fuente:",
+                    options=["Todas"] + fuentes_disponibles
+                )
+            
+            # Apply filters
+            filtered_no_matches = no_matches_df.copy()
+            if port_filter_no_match != "Todos":
+                filtered_no_matches = filtered_no_matches[filtered_no_matches['port_code'] == port_filter_no_match]
+            if fuente_selected != "Todas":
+                filtered_no_matches = filtered_no_matches[filtered_no_matches['source'] == fuente_selected]
+        else:
+            # Original filter without port codes
+            fuentes_disponibles = no_matches_df['source'].unique().tolist()
+            fuente_selected = st.selectbox(
+                "Filtrar por fuente:",
+                options=["Todas"] + fuentes_disponibles
+            )
+            
+            if fuente_selected != "Todas":
+                filtered_no_matches = no_matches_df[no_matches_df['source'] == fuente_selected]
+            else:
+                filtered_no_matches = no_matches_df
+        
         # Distribución por fuente
-        source_dist = no_matches_df['source'].value_counts()
+        source_dist = filtered_no_matches['source'].value_counts()
         
         col1, col2 = st.columns([1, 2])
         
@@ -336,21 +416,14 @@ with tab4:
         # Tabla detallada de destinos sin coincidencias
         st.subheader("Detalle de Destinos sin Coincidencias")
         
-        # Filtro por fuente
-        fuentes_disponibles = no_matches_df['source'].unique().tolist()
-        fuente_selected = st.selectbox(
-            "Filtrar por fuente:",
-            options=["Todas"] + fuentes_disponibles
-        )
-        
-        if fuente_selected != "Todas":
-            no_matches_filtered = no_matches_df[no_matches_df['source'] == fuente_selected]
-        else:
-            no_matches_filtered = no_matches_df
-        
         # Mostrar tabla
-        display_df = no_matches_filtered[['destino', 'source', 'veinte', 'cuarenta']].copy()
-        display_df.columns = ['Destino', 'Fuente', 'Precio 20\'', 'Precio 40\'']
+        if 'port_code' in filtered_no_matches.columns:
+            display_df = filtered_no_matches[['destino', 'port_code', 'source', 'veinte', 'cuarenta']].copy()
+            display_df.columns = ['Destino', 'Puerto', 'Fuente', 'Precio 20\'', 'Precio 40\'']
+        else:
+            display_df = filtered_no_matches[['destino', 'source', 'veinte', 'cuarenta']].copy()
+            display_df.columns = ['Destino', 'Fuente', 'Precio 20\'', 'Precio 40\'']
+        
         display_df = display_df.fillna('N/A')
         
         st.dataframe(display_df, use_container_width=True)
