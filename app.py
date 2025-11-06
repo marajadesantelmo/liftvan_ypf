@@ -213,15 +213,25 @@ with tab2:
     
     with col3:
         if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
-            avg_diff = comparison_df['price_diff_20_pct'].mean()
-            st.metric("Diferencia Promedio (%)", f"{avg_diff:.1f}%")
+            # Filter out infinite values
+            valid_diffs = comparison_df['price_diff_20_pct'].replace([np.inf, -np.inf], np.nan).dropna()
+            if len(valid_diffs) > 0:
+                avg_diff = valid_diffs.mean()
+                st.metric("Diferencia Promedio (%)", f"{avg_diff:.1f}%")
+            else:
+                st.metric("Diferencia Promedio (%)", "0.0%")
         else:
             st.metric("Diferencia Promedio (%)", "N/A")
     
     with col4:
         if not comparison_df.empty and 'price_diff_20_pct' in comparison_df.columns:
-            max_diff = comparison_df['price_diff_20_pct'].max()
-            st.metric("Diferencia Máxima (%)", f"{max_diff:.1f}%")
+            # Filter out infinite values
+            valid_diffs = comparison_df['price_diff_20_pct'].replace([np.inf, -np.inf], np.nan).dropna()
+            if len(valid_diffs) > 0:
+                max_diff = valid_diffs.max()
+                st.metric("Diferencia Máxima (%)", f"{max_diff:.1f}%")
+            else:
+                st.metric("Diferencia Máxima (%)", "0.0%")
         else:
             st.metric("Diferencia Máxima (%)", "N/A")
 
@@ -268,20 +278,30 @@ with tab2:
     
     with col1:
         st.write("**Contenedor 20'**")
-        top_diff_20 = comparison_df.nlargest(10, 'price_diff_20_pct')[
-            ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
-        ].round(2)
-        top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-        st.dataframe(top_diff_20, use_container_width=True)
+        # Filter out infinite values before getting top differences
+        filtered_df_20 = comparison_df[comparison_df['price_diff_20_pct'].replace([np.inf, -np.inf], np.nan).notna()]
+        if not filtered_df_20.empty:
+            top_diff_20 = filtered_df_20.nlargest(10, 'price_diff_20_pct')[
+                ['destino', 'port_code', 'best_price_20', 'worst_price_20', 'price_diff_20_pct', 'best_provider_20']
+            ].round(2)
+            top_diff_20.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            st.dataframe(top_diff_20, use_container_width=True)
+        else:
+            st.info("No hay datos válidos para mostrar")
     
     with col2:
         st.write("**Contenedor 40'**")
-        top_diff_40 = comparison_df.nlargest(10, 'price_diff_40_pct')[
-            ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
-        ].round(2)
-        top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
-        st.dataframe(top_diff_40, use_container_width=True)
-    
+        # Filter out infinite values before getting top differences
+        filtered_df_40 = comparison_df[comparison_df['price_diff_40_pct'].replace([np.inf, -np.inf], np.nan).notna()]
+        if not filtered_df_40.empty:
+            top_diff_40 = filtered_df_40.nlargest(10, 'price_diff_40_pct')[
+                ['destino', 'port_code', 'best_price_40', 'worst_price_40', 'price_diff_40_pct', 'best_provider_40']
+            ].round(2)
+            top_diff_40.columns = ['Destino', 'Puerto', 'Mejor Precio', 'Peor Precio', 'Diferencia %', 'Mejor Proveedor']
+            st.dataframe(top_diff_40, use_container_width=True)
+        else:
+            st.info("No hay datos válidos para mostrar")
+
     st.subheader("Análisis de Dispersión de Precios")
     
     fig_scatter = make_subplots(
@@ -290,19 +310,26 @@ with tab2:
         specs=[[{"secondary_y": False}, {"secondary_y": False}]]
     )
     
+    # Filter out infinite values for scatter plots
+    scatter_df_20 = comparison_df[comparison_df['price_diff_20_pct'].replace([np.inf, -np.inf], np.nan).notna()]
+    scatter_df_40 = comparison_df[comparison_df['price_diff_40_pct'].replace([np.inf, -np.inf], np.nan).notna()]
+    
     # Create hover text with port codes
     hover_text_20 = []
     hover_text_40 = []
-    for _, row in comparison_df.iterrows():
+    for _, row in scatter_df_20.iterrows():
         port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
         hover_text_20.append(f"{row['destino']}{port_info}")
+    
+    for _, row in scatter_df_40.iterrows():
+        port_info = f" ({row['port_code']})" if 'port_code' in row and pd.notna(row['port_code']) and row['port_code'] else ""
         hover_text_40.append(f"{row['destino']}{port_info}")
     
     # Scatter plot para 20'
     fig_scatter.add_trace(
         go.Scatter(
-            x=comparison_df['best_price_20'],
-            y=comparison_df['price_diff_20_pct'],
+            x=scatter_df_20['best_price_20'],
+            y=scatter_df_20['price_diff_20_pct'],
             mode='markers',
             name='20\'',
             text=hover_text_20,
@@ -315,8 +342,8 @@ with tab2:
     # Scatter plot para 40'
     fig_scatter.add_trace(
         go.Scatter(
-            x=comparison_df['best_price_40'],
-            y=comparison_df['price_diff_40_pct'],
+            x=scatter_df_40['best_price_40'],
+            y=scatter_df_40['price_diff_40_pct'],
             mode='markers',
             name='40\'',
             text=hover_text_40,

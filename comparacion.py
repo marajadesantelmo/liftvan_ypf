@@ -224,35 +224,43 @@ for destino in all_destinations:
             row['silver_40'] = np.nan
         
         # Calculate differences and best prices for 20'
-        prices_20 = [p for p in [row.get('aires_20'), row.get('fcl_20'), row.get('silver_20')] if pd.notna(p)]
-        if prices_20:
+        prices_20 = [p for p in [row.get('aires_20'), row.get('fcl_20'), row.get('silver_20')] if pd.notna(p) and p > 0]
+        if len(prices_20) >= 2:  # Need at least 2 valid prices for comparison
             row['best_price_20'] = min(prices_20)
             row['worst_price_20'] = max(prices_20)
             row['price_diff_20'] = max(prices_20) - min(prices_20)
-            row['price_diff_20_pct'] = (row['price_diff_20'] / min(prices_20)) * 100
+            # Avoid division by zero
+            if min(prices_20) > 0:
+                row['price_diff_20_pct'] = (row['price_diff_20'] / min(prices_20)) * 100
+            else:
+                row['price_diff_20_pct'] = 0
             
             # Find best provider for 20'
-            if pd.notna(row.get('aires_20')) and row['aires_20'] == row['best_price_20']:
+            if pd.notna(row.get('aires_20')) and row['aires_20'] > 0 and row['aires_20'] == row['best_price_20']:
                 row['best_provider_20'] = 'AiresDS'
-            elif pd.notna(row.get('fcl_20')) and row['fcl_20'] == row['best_price_20']:
+            elif pd.notna(row.get('fcl_20')) and row['fcl_20'] > 0 and row['fcl_20'] == row['best_price_20']:
                 row['best_provider_20'] = 'EXIM'
-            else:
+            elif pd.notna(row.get('silver_20')) and row['silver_20'] > 0 and row['silver_20'] == row['best_price_20']:
                 row['best_provider_20'] = 'Silver'
         
         # Calculate differences and best prices for 40'
-        prices_40 = [p for p in [row.get('aires_40'), row.get('fcl_40'), row.get('silver_40')] if pd.notna(p)]
-        if prices_40:
+        prices_40 = [p for p in [row.get('aires_40'), row.get('fcl_40'), row.get('silver_40')] if pd.notna(p) and p > 0]
+        if len(prices_40) >= 2:  # Need at least 2 valid prices for comparison
             row['best_price_40'] = min(prices_40)
             row['worst_price_40'] = max(prices_40)
             row['price_diff_40'] = max(prices_40) - min(prices_40)
-            row['price_diff_40_pct'] = (row['price_diff_40'] / min(prices_40)) * 100
+            # Avoid division by zero
+            if min(prices_40) > 0:
+                row['price_diff_40_pct'] = (row['price_diff_40'] / min(prices_40)) * 100
+            else:
+                row['price_diff_40_pct'] = 0
             
             # Find best provider for 40'
-            if pd.notna(row.get('aires_40')) and row['aires_40'] == row['best_price_40']:
+            if pd.notna(row.get('aires_40')) and row['aires_40'] > 0 and row['aires_40'] == row['best_price_40']:
                 row['best_provider_40'] = 'AiresDS'
-            elif pd.notna(row.get('fcl_40')) and row['fcl_40'] == row['best_price_40']:
+            elif pd.notna(row.get('fcl_40')) and row['fcl_40'] > 0 and row['fcl_40'] == row['best_price_40']:
                 row['best_provider_40'] = 'EXIM'
-            else:
+            elif pd.notna(row.get('silver_40')) and row['silver_40'] > 0 and row['silver_40'] == row['best_price_40']:
                 row['best_provider_40'] = 'Silver'
         
         row['sources_available'] = sources_count
@@ -299,12 +307,16 @@ if not comparison_df.empty:
 # Create summary statistics
 summary_stats = {}
 if not comparison_df.empty:
+    # Filter out infinite values for statistics
+    valid_diff_20 = comparison_df['price_diff_20_pct'].replace([np.inf, -np.inf], np.nan).dropna()
+    valid_diff_40 = comparison_df['price_diff_40_pct'].replace([np.inf, -np.inf], np.nan).dropna()
+    
     summary_stats = {
         'total_destinations_compared': len(comparison_df),
-        'avg_price_diff_20_pct': comparison_df['price_diff_20_pct'].mean(),
-        'max_price_diff_20_pct': comparison_df['price_diff_20_pct'].max(),
-        'avg_price_diff_40_pct': comparison_df['price_diff_40_pct'].mean(),
-        'max_price_diff_40_pct': comparison_df['price_diff_40_pct'].max(),
+        'avg_price_diff_20_pct': valid_diff_20.mean() if len(valid_diff_20) > 0 else 0,
+        'max_price_diff_20_pct': valid_diff_20.max() if len(valid_diff_20) > 0 else 0,
+        'avg_price_diff_40_pct': valid_diff_40.mean() if len(valid_diff_40) > 0 else 0,
+        'max_price_diff_40_pct': valid_diff_40.max() if len(valid_diff_40) > 0 else 0,
         'aires_best_count_20': (comparison_df['best_provider_20'] == 'AiresDS').sum(),
         'fcl_best_count_20': (comparison_df['best_provider_20'] == 'EXIM').sum(),
         'silver_best_count_20': (comparison_df['best_provider_20'] == 'Silver').sum(),
