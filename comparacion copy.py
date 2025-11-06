@@ -103,11 +103,17 @@ airesds = airesds.reset_index(drop=True)
 # Rename columns for consistency
 airesds.rename(columns={'curenta': 'cuarenta'}, inplace=True)
 
-fcl['veinte'] = fcl['veinte'].fillna(0).astype(float)
-fcl['cuarenta'] = fcl['cuarenta'].fillna(0).astype(float)
-silver['veinte'] = silver['veinte'].replace({'-': '0'}, regex=True).astype(float)
-silver['veinte'] = silver['veinte'].fillna(0).astype(float)
-silver['cuarenta'] = silver['cuarenta'].fillna(0).astype(float)
+# Clean FCL data (remove $ and commas if present)
+if fcl['veinte'].dtype == 'object':
+    fcl['veinte'] = fcl['veinte'].replace({'\$': '', ',': ''}, regex=True).astype(float)
+if fcl['cuarenta'].dtype == 'object':
+    fcl['cuarenta'] = fcl['cuarenta'].replace({'\$': '', ',': ''}, regex=True).astype(float)
+
+# Clean Silver data (remove $ and commas if present)
+if silver['veinte'].dtype == 'object':
+    silver['veinte'] = silver['veinte'].replace({'\$': '', ',': ''}, regex=True).astype(float)
+if silver['cuarenta'].dtype == 'object':
+    silver['cuarenta'] = silver['cuarenta'].replace({'\$': '', ',': ''}, regex=True).astype(float)
 
 # Add port code extraction to all datasets
 airesds['port_code'] = airesds['destino'].apply(extract_port_code)

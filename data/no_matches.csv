@@ -1,102 +1,101 @@
 destino,original_destino,port_code,source,veinte,cuarenta,reason
-Alger (DZALG),Alger (DZALG),DZALG,EXIM,2950.0,3450.0,Only available in one source
-Edmonton,Edmonton,,EXIM,7000.0,8000.0,Only available in one source
-Jakarta - IDJKT,Jakarta - IDJKT,IDJKT,EXIM,2150.0,2350.0,Only available in one source
-Muscat - OMMCT,Muscat - OMMCT,OMMCT,EXIM,3200.0,2900.0,Only available in one source
-Edmonton Terminal,Edmonton Terminal,,Silver,,,Only available in one source
-Tegucigalpa (HNTGU),Tegucigalpa (HNTGU),HNTGU,EXIM,5600.0,6150.0,Only available in one source
-Dakar,Dakar,,EXIM,3350.0,4500.0,Only available in one source
-Toronto Terminal,Toronto Terminal,,Silver,7600.0,7800.0,Only available in one source
-Nhava Sheva - INNSA,Nhava Sheva - INNSA,INNSA,EXIM,2850.0,5450.0,Only available in one source
-Tacoma (USTIW),Tacoma (USTIW),USTIW,EXIM,9350.0,9950.0,Only available in one source
-Pecem (BRPEC),Pecem (BRPEC),BRPEC,EXIM,2150.0,2550.0,Only available in one source
-Manaus (BRMAO),Manaus (BRMAO),BRMAO,EXIM,3400.0,3900.0,Only available in one source
-Regina,Regina,,EXIM,7150.0,8350.0,Only available in one source
-Doha - QADOH,Doha - QADOH,QADOH,EXIM,2900.0,2750.0,Only available in one source
-Kansas City (USKCK),Kansas City (USKCK),USKCK,EXIM,7150.0,7350.0,Only available in one source
-Prague,Prague,,Silver,3360.0,3745.0,Only available in one source
-Itapoa (BRIOA),Itapoa (BRIOA),BRIOA,EXIM,1800.0,2150.0,Only available in one source
-Hyderabad - INHYD,Hyderabad - INHYD,INHYD,EXIM,3050.0,3950.0,Only available in one source
-Cartagena Port Colombia (COCTG),Cartagena Port Colombia (COCTG),COCTG,AiresDS,3019.0,3118.0,Only available in one source
-Luxemburgo,Luxemburgo,,Silver,3910.0,4075.0,Only available in one source
-Miami FL,Miami FL,,EXIM,4750.0,5000.0,Only available in one source
-Itajai (BRITJ),Itajai (BRITJ),BRITJ,EXIM,1650.0,2000.0,Only available in one source
-Bassens,Bassens,,Silver,,,Only available in one source
-Soedertaelje (SESOE),Soedertaelje (SESOE),SESOE,EXIM,3400.0,4600.0,Only available in one source
-Imbituba (BRIBB),Imbituba (BRIBB),BRIBB,EXIM,1700.0,2000.0,Only available in one source
-Halifax Port,Halifax Port,,Silver,,,Only available in one source
-Calgary (CACAL),Calgary (CACAL),CACAL,EXIM,6400.0,8100.0,Only available in one source
-Montoir,Montoir,,Silver,3465.0,4450.0,Only available in one source
-Nairobi Terminal,Nairobi Terminal,,Silver,,,Only available in one source
-Santo Tomas De Castilla,Santo Tomas De Castilla,,Silver,5615.0,6055.0,Only available in one source
-Port of Spain (TTPOS),Port of Spain (TTPOS),TTPOS,EXIM,5000.0,5400.0,Only available in one source
-Liverpool (GBLIV),Liverpool (GBLIV),GBLIV,EXIM,2550.0,2750.0,Only available in one source
-Yokohama - JPYOK,Yokohama - JPYOK,JPYOK,EXIM,2150.0,2300.0,Only available in one source
-Piraeus (GRPIR),Piraeus (GRPIR),GRPIR,EXIM,2300.0,2750.0,Only available in one source
-Ambarli/Istambul - TRIST,Ambarli/Istambul - TRIST,TRIST,EXIM,2250.0,2850.0,Only available in one source
-Geneve (CHGVA),Geneve (CHGVA),CHGVA,EXIM,4650.0,5250.0,Only available in one source
-Minneapolis (USMES),Minneapolis (USMES),USMES,EXIM,7500.0,7850.0,Only available in one source
-Amsterdam (NLAMS),Amsterdam (NLAMS),NLAMS,EXIM,2550.0,2850.0,Only available in one source
-Rio Grande ( BRRIG),Rio Grande ( BRRIG),BRRIG,EXIM,1650.0,1950.0,Only available in one source
-Vienna (ATVIE),Vienna (ATVIE),ATVIE,EXIM,2750.0,3250.0,Only available in one source
-Winnipeg Terminal,Winnipeg Terminal,,Silver,3690.0,4200.0,Only available in one source
-Nassau Bahamas,Nassau Bahamas,,Silver,12290.0,15970.0,Only available in one source
-Aqaba - JOAQJ,Aqaba - JOAQJ,JOAQJ,EXIM,5050.0,7250.0,Only available in one source
-"Puerto Willemstad, Curazao","Puerto Willemstad, Curazao",,Silver,7460.0,8650.0,Only available in one source
-Sines (PTSIE),Sines (PTSIE),PTSIE,EXIM,2800.0,2850.0,Only available in one source
-Shuwaikh Port - KWSWK,Shuwaikh Port - KWSWK,KWSWK,EXIM,5200.0,6750.0,Only available in one source
-Tanger (MAPTM),Tanger (MAPTM),MAPTM,EXIM,2550.0,2950.0,Only available in one source
-Koper (SIKOP),Koper (SIKOP),SIKOP,EXIM,2550.0,2850.0,Only available in one source
-Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),BSNAS,AiresDS,10770.0,13993.0,Only available in one source
-Hong Kong - HKHKG,Hong Kong - HKHKG,HKHKG,EXIM,1900.0,2100.0,Only available in one source
-Adelaide (AUADL),Adelaide (AUADL),AUADL,EXIM,2350.0,2350.0,Only available in one source
-Poti - GEPTI,Poti - GEPTI,GEPTI,EXIM,2300.0,2550.0,Only available in one source
-Tianjin - CNTXG,Tianjin - CNTXG,CNTXG,EXIM,2150.0,2300.0,Only available in one source
-Casablanca (MACAS),Casablanca (MACAS),MACAS,EXIM,2400.0,3050.0,Only available in one source
-Luanda (AOLAD),Luanda (AOLAD),AOLAD,EXIM,4750.0,5700.0,Only available in one source
-Jeddah - SAJED,Jeddah - SAJED,SAJED,EXIM,2900.0,2750.0,Only available in one source
-Durban (ZADUR),Durban (ZADUR),ZADUR,EXIM,2800.0,2900.0,Only available in one source
-Rades (TNRDS),Rades (TNRDS),TNRDS,EXIM,2400.0,3950.0,Only available in one source
-Dar Es Salamm (TZDAR),Dar Es Salamm (TZDAR),TZDAR,EXIM,5150.0,6000.0,Only available in one source
-Lagos,Lagos,,Silver,,,Only available in one source
-Willemstad (CWWIL),Willemstad (CWWIL),CWWIL,EXIM,6900.0,8250.0,Only available in one source
-Vigo (ESVGO),Vigo (ESVGO),ESVGO,EXIM,3100.0,3450.0,Only available in one source
-Miami,Miami,,Silver,4940.0,5015.0,Only available in one source
-Portland (Via NY),Portland (Via NY),,Silver,9290.0,9770.0,Only available in one source
-Venezia (ITVCE),Venezia (ITVCE),ITVCE,EXIM,2280.0,2750.0,Only available in one source
-Rabat (MARBA),Rabat (MARBA),MARBA,EXIM,5000.0,6150.0,Only available in one source
-Winnipeg,Winnipeg,,EXIM,7450.0,8700.0,Only available in one source
-Zurich (CHZRH),Zurich (CHZRH),CHZRH,EXIM,3200.0,3600.0,Only available in one source
-Montevideo (UYMVD),Montevideo (UYMVD),UYMVD,EXIM,1900.0,2200.0,Only available in one source
-cincinnati (USCVG),cincinnati (USCVG),USCVG,EXIM,6900.0,7150.0,Only available in one source
-Bruselas (BEBRU),Bruselas (BEBRU),BEBRU,EXIM,3000.0,3450.0,Only available in one source
-Bremen,Bremen,,Silver,3180.0,3380.0,Only available in one source
-Montreal (CAMTR),Montreal (CAMTR),CAMTR,EXIM,6250.0,6650.0,Only available in one source
-Thessaloniki (GRSKG),Thessaloniki (GRSKG),GRSKG,EXIM,3100.0,4250.0,Only available in one source
-Toronto (CATOR),Toronto (CATOR),CATOR,EXIM,6250.0,6650.0,Only available in one source
-Agadir (MAAGA),Agadir (MAAGA),MAAGA,EXIM,2150.0,2400.0,Only available in one source
-Bangkok - THBKK,Bangkok - THBKK,THBKK,EXIM,2200.0,2350.0,Only available in one source
-Beirut - LBBEY,Beirut - LBBEY,LBBEY,EXIM,3200.0,3700.0,Only available in one source
-Praga (CZPRG),Praga (CZPRG),CZPRG,EXIM,3100.0,3600.0,Only available in one source
-Sohar - OMSOH,Sohar - OMSOH,OMSOH,EXIM,2000.0,2500.0,Only available in one source
-Caracas (VECCS),Caracas (VECCS),VECCS,EXIM,4850.0,5600.0,Only available in one source
-Hammad Port - QAHMD,Hammad Port - QAHMD,QAHMD,EXIM,5100.0,7300.0,Only available in one source
-Lima (PELIM),Lima (PELIM),PELIM,EXIM,4650.0,5150.0,Only available in one source
-Rio Haina (DOHAI),Rio Haina (DOHAI),DOHAI,EXIM,3900.0,4400.0,Only available in one source
-Baton Rouge (USBTR),Baton Rouge (USBTR),USBTR,EXIM,5500.0,5700.0,Only available in one source
-Boston (USBOS),Boston (USBOS),USBOS,EXIM,5200.0,6250.0,Only available in one source
-Quito (ECUIO),Quito (ECUIO),ECUIO,EXIM,4950.0,5450.0,Only available in one source
-Apapa (NGAPP),Apapa (NGAPP),NGAPP,EXIM,4550.0,5700.0,Only available in one source
-Milan,Milan,,Silver,3450.0,3799.0,Only available in one source
-Mexico city (MXMEX),Mexico city (MXMEX),MXMEX,EXIM,4550.0,5200.0,Only available in one source
-Dubai - AEDXB,Dubai - AEDXB,AEDXB,EXIM,3100.0,2800.0,Only available in one source
-Managua (NIMGA),Managua (NIMGA),NIMGA,EXIM,6000.0,7600.0,Only available in one source
-Saskatoon,Saskatoon,,EXIM,7200.0,8350.0,Only available in one source
-Salt Lake City (USSLC),Salt Lake City (USSLC),USSLC,EXIM,7050.0,7500.0,Only available in one source
-Johannesburg (ZAJBN),Johannesburg (ZAJBN),ZAJBN,EXIM,3100.0,3650.0,Only available in one source
-Gdansk (PLGDN),Gdansk (PLGDN),PLGDN,EXIM,2050.0,2550.0,Only available in one source
-Cagliaria,Cagliaria,,Silver,,,Only available in one source
-Navegantes (BRNVT),Navegantes (BRNVT),BRNVT,EXIM,1650.0,2000.0,Only available in one source
+Winnipeg Terminal,Winnipeg Terminal,,Silver,0.0,0.0,Only available in one source
 Phoenix (USPHX),Phoenix (USPHX),USPHX,EXIM,6550.0,6800.0,Only available in one source
+"Jeddah, Arabia Saudita","Jeddah, Arabia Saudita",,EXIM,4650.0,0.0,Only available in one source
+Jakarta - IDJKT,Jakarta - IDJKT,IDJKT,EXIM,2150.0,2350.0,Only available in one source
+Toronto (CATOR),Toronto (CATOR),CATOR,EXIM,6250.0,6650.0,Only available in one source
+Navegantes (BRNVT),Navegantes (BRNVT),BRNVT,EXIM,1650.0,2000.0,Only available in one source
+Bremen,Bremen,,Silver,1880.0,1980.0,Only available in one source
+Nassau Bahamas,Nassau Bahamas,,Silver,10990.0,14570.0,Only available in one source
+Vigo (ESVGO),Vigo (ESVGO),ESVGO,EXIM,3100.0,3450.0,Only available in one source
+Tacoma (USTIW),Tacoma (USTIW),USTIW,EXIM,9350.0,9950.0,Only available in one source
+Rades (TNRDS),Rades (TNRDS),TNRDS,EXIM,2400.0,3950.0,Only available in one source
+cincinnati (USCVG),cincinnati (USCVG),USCVG,EXIM,6900.0,7150.0,Only available in one source
+Toronto Terminal,Toronto Terminal,,Silver,6300.0,6400.0,Only available in one source
+"Halifax Port, Canada (via Cartagena)","Halifax Port, Canada (via Cartagena)",,AiresDS,4633.0,5798.0,Only available in one source
+Halifax Port,Halifax Port,,Silver,0.0,0.0,Only available in one source
+Edmonton Terminal,Edmonton Terminal,,Silver,0.0,0.0,Only available in one source
+Georgetown,Georgetown,,EXIM,4800.0,6050.0,Only available in one source
+Piraeus (GRPIR),Piraeus (GRPIR),GRPIR,EXIM,2300.0,2750.0,Only available in one source
+Rio Grande ( BRRIG),Rio Grande ( BRRIG),BRRIG,EXIM,1650.0,1950.0,Only available in one source
+Boston (USBOS),Boston (USBOS),USBOS,EXIM,5200.0,6250.0,Only available in one source
+Pecem (BRPEC),Pecem (BRPEC),BRPEC,EXIM,2150.0,2550.0,Only available in one source
+Durban (ZADUR),Durban (ZADUR),ZADUR,EXIM,2800.0,2900.0,Only available in one source
+Itajai (BRITJ),Itajai (BRITJ),BRITJ,EXIM,1650.0,2000.0,Only available in one source
+Managua (NIMGA),Managua (NIMGA),NIMGA,EXIM,6000.0,7600.0,Only available in one source
+Winnipeg,Winnipeg,,EXIM,7450.0,8700.0,Only available in one source
+Vienna (ATVIE),Vienna (ATVIE),ATVIE,EXIM,2750.0,3250.0,Only available in one source
+Aqaba - JOAQJ,Aqaba - JOAQJ,JOAQJ,EXIM,5050.0,7250.0,Only available in one source
+Hyderabad - INHYD,Hyderabad - INHYD,INHYD,EXIM,3050.0,3950.0,Only available in one source
+Doha - QADOH,Doha - QADOH,QADOH,EXIM,2900.0,2750.0,Only available in one source
+Saskatoon,Saskatoon,,EXIM,7200.0,8350.0,Only available in one source
+Jeddah - SAJED,Jeddah - SAJED,SAJED,EXIM,2900.0,2750.0,Only available in one source
+Poti - GEPTI,Poti - GEPTI,GEPTI,EXIM,2300.0,2550.0,Only available in one source
+Caracas (VECCS),Caracas (VECCS),VECCS,EXIM,4850.0,5600.0,Only available in one source
+Miami FL,Miami FL,,EXIM,4750.0,5000.0,Only available in one source
+Altamira,Altamira,,AiresDS,4665.0,4584.0,Only available in one source
+Thessaloniki (GRSKG),Thessaloniki (GRSKG),GRSKG,EXIM,3100.0,4250.0,Only available in one source
+Baton Rouge (USBTR),Baton Rouge (USBTR),USBTR,EXIM,5500.0,5700.0,Only available in one source
+Koper (SIKOP),Koper (SIKOP),SIKOP,EXIM,2550.0,2850.0,Only available in one source
+Alger (DZALG),Alger (DZALG),DZALG,EXIM,2950.0,3450.0,Only available in one source
+Montevideo (UYMVD),Montevideo (UYMVD),UYMVD,EXIM,1900.0,2200.0,Only available in one source
 Paris (FRPAR),Paris (FRPAR),FRPAR,EXIM,2700.0,2950.0,Only available in one source
+Santo Tomas De Castilla,Santo Tomas De Castilla,,Silver,4315.0,4655.0,Only available in one source
+Zurich (CHZRH),Zurich (CHZRH),CHZRH,EXIM,3200.0,3600.0,Only available in one source
+Hong Kong - HKHKG,Hong Kong - HKHKG,HKHKG,EXIM,1900.0,2100.0,Only available in one source
+Praga (CZPRG),Praga (CZPRG),CZPRG,EXIM,3100.0,3600.0,Only available in one source
+Tanger (MAPTM),Tanger (MAPTM),MAPTM,EXIM,2550.0,2950.0,Only available in one source
+Yidda /  JEDDAH (SAJED),Yidda /  JEDDAH (SAJED),SAJED,Silver,3380.0,0.0,Only available in one source
+Adelaide (AUADL),Adelaide (AUADL),AUADL,EXIM,2350.0,2350.0,Only available in one source
+Johannesburg (ZAJBN),Johannesburg (ZAJBN),ZAJBN,EXIM,3100.0,3650.0,Only available in one source
+Montoir,Montoir,,Silver,2165.0,3050.0,Only available in one source
+Mexico city (MXMEX),Mexico city (MXMEX),MXMEX,EXIM,4550.0,5200.0,Only available in one source
+Prague,Prague,,Silver,2060.0,2345.0,Only available in one source
+Imbituba (BRIBB),Imbituba (BRIBB),BRIBB,EXIM,1700.0,2000.0,Only available in one source
+Beirut - LBBEY,Beirut - LBBEY,LBBEY,EXIM,3200.0,3700.0,Only available in one source
+Kansas City (USKCK),Kansas City (USKCK),USKCK,EXIM,7150.0,7350.0,Only available in one source
+Bangkok - THBKK,Bangkok - THBKK,THBKK,EXIM,2200.0,2350.0,Only available in one source
+Nhava Sheva - INNSA,Nhava Sheva - INNSA,INNSA,EXIM,2850.0,5450.0,Only available in one source
+Ambarli/Istambul - TRIST,Ambarli/Istambul - TRIST,TRIST,EXIM,2250.0,2850.0,Only available in one source
+Malmo (inland) (Puerto de descarga: Helsingborg),Malmo (inland) (Puerto de descarga: Helsingborg),,AiresDS,3364.0,3736.0,Only available in one source
+Gdansk (PLGDN),Gdansk (PLGDN),PLGDN,EXIM,2050.0,2550.0,Only available in one source
+Lima (PELIM),Lima (PELIM),PELIM,EXIM,4650.0,5150.0,Only available in one source
+Hammad Port - QAHMD,Hammad Port - QAHMD,QAHMD,EXIM,5100.0,7300.0,Only available in one source
+Bassens,Bassens,,Silver,0.0,0.0,Only available in one source
+Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),Nassau Bahamas NEW PROVIDENCE ISLAND (BSNAS),BSNAS,AiresDS,10194.0,11910.0,Only available in one source
+Cagliaria,Cagliaria,,Silver,0.0,0.0,Only available in one source
+Montreal (CAMTR),Montreal (CAMTR),CAMTR,EXIM,6250.0,6650.0,Only available in one source
+Muscat - OMMCT,Muscat - OMMCT,OMMCT,EXIM,3200.0,2900.0,Only available in one source
+Port of Spain (TTPOS),Port of Spain (TTPOS),TTPOS,EXIM,5000.0,5400.0,Only available in one source
+Itapoa (BRIOA),Itapoa (BRIOA),BRIOA,EXIM,1800.0,2150.0,Only available in one source
+Luxemburgo,Luxemburgo,,Silver,2610.0,2675.0,Only available in one source
+Regina,Regina,,EXIM,7150.0,8350.0,Only available in one source
+Minneapolis (USMES),Minneapolis (USMES),USMES,EXIM,7500.0,7850.0,Only available in one source
+Manaus (BRMAO),Manaus (BRMAO),BRMAO,EXIM,3400.0,3900.0,Only available in one source
+Dar Es Salamm (TZDAR),Dar Es Salamm (TZDAR),TZDAR,EXIM,5150.0,6000.0,Only available in one source
+"Georgetown, Guyana","Georgetown, Guyana",,Silver,5855.0,5955.0,Only available in one source
+Geneve (CHGVA),Geneve (CHGVA),CHGVA,EXIM,4650.0,5250.0,Only available in one source
+Tegucigalpa (HNTGU),Tegucigalpa (HNTGU),HNTGU,EXIM,5600.0,6150.0,Only available in one source
+Rio Haina (DOHAI),Rio Haina (DOHAI),DOHAI,EXIM,3900.0,4400.0,Only available in one source
+Bruselas (BEBRU),Bruselas (BEBRU),BEBRU,EXIM,3000.0,3450.0,Only available in one source
+Salt Lake City (USSLC),Salt Lake City (USSLC),USSLC,EXIM,7050.0,7500.0,Only available in one source
+Miami,Miami,,Silver,3640.0,3615.0,Only available in one source
+Milan,Milan,,Silver,2150.0,2399.0,Only available in one source
+Luanda (AOLAD),Luanda (AOLAD),AOLAD,EXIM,4750.0,5700.0,Only available in one source
+"Puerto Willemstad, Curazao","Puerto Willemstad, Curazao",,Silver,6160.0,7250.0,Only available in one source
+Dubai - AEDXB,Dubai - AEDXB,AEDXB,EXIM,3100.0,2800.0,Only available in one source
+Apapa (NGAPP),Apapa (NGAPP),NGAPP,EXIM,4550.0,5700.0,Only available in one source
+Agadir (MAAGA),Agadir (MAAGA),MAAGA,EXIM,2150.0,2400.0,Only available in one source
+Quito (ECUIO),Quito (ECUIO),ECUIO,EXIM,4950.0,5450.0,Only available in one source
+Dakar,Dakar,,EXIM,3350.0,4500.0,Only available in one source
+Liverpool (GBLIV),Liverpool (GBLIV),GBLIV,EXIM,2550.0,2750.0,Only available in one source
+Shuwaikh Port - KWSWK,Shuwaikh Port - KWSWK,KWSWK,EXIM,5200.0,6750.0,Only available in one source
+Willemstad (CWWIL),Willemstad (CWWIL),CWWIL,EXIM,6900.0,8250.0,Only available in one source
+Cartagena Port Colombia (COCTG),Cartagena Port Colombia (COCTG),COCTG,AiresDS,4237.0,4506.0,Only available in one source
+Amsterdam (NLAMS),Amsterdam (NLAMS),NLAMS,EXIM,2550.0,2850.0,Only available in one source
 Tunes (Tunis) - TUTUN,Tunes (Tunis) - TUTUN,TUTUN,EXIM,2300.0,3800.0,Only available in one source
+Edmonton,Edmonton,,EXIM,7000.0,8000.0,Only available in one source
+Tianjin - CNTXG,Tianjin - CNTXG,CNTXG,EXIM,2150.0,2300.0,Only available in one source
+Sines (PTSIE),Sines (PTSIE),PTSIE,EXIM,2800.0,2850.0,Only available in one source
+Soedertaelje (SESOE),Soedertaelje (SESOE),SESOE,EXIM,3400.0,4600.0,Only available in one source
+Sohar - OMSOH,Sohar - OMSOH,OMSOH,EXIM,2000.0,2500.0,Only available in one source
