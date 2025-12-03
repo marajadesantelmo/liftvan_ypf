@@ -1,7 +1,7 @@
 destino,veinte,cuarenta,port_code,source
 Alexandria (EGALY),2970.0,3070.0,EGALY,Silver
 Algeciras (ESALG),2293.0,2651.0,ESALG,Silver
-Antwerp (BEANR),2050.0,2110.0,BEANR,Silver
+Antwerp (BEANR),2050.0,2050.0,BEANR,Silver
 Arica (CLARI),5746.0,6210.0,CLARI,Silver
 Ashdod (ILASH),2572.0,2970.0,ILASH,Silver
 Atlanta (USATL),6115.0,6170.0,USATL,Silver
@@ -27,16 +27,16 @@ Charlotte,6115.0,6170.0,,Silver
 Chicago (via NYC),6220.0,6320.0,,Silver
 Cleveland (USCLE),6320.0,6470.0,USCLE,Silver
 Constanta,2445.0,2710.0,,Silver
-Copenhagen,2350.0,3370.0,,Silver
+Copenhagen,2720.0,3620.0,,Silver
 Dallas (USDAL),5110.0,5210.0,USDAL,Silver
 Denver (USDEN),6320.0,6710.0,USDEN,Silver
 Detroit (USDET),6310.0,6430.0,USDET,Silver
 Dublin (IEDUB),2820.0,4090.0,IEDUB,Silver
 Edmonton Terminal,0.0,0.0,,Silver
 Estocolmo (SESTO),0.0,0.0,SESTO,Silver
-Felixstowe,3030.0,3820.0,,Silver
+Felixstowe,3230.0,4020.0,,Silver
 Fos sur Mer,2335.0,2680.0,,Silver
-Fremantle,3120.0,3460.0,,Silver
+ ,3120.0,3460.0,,Silver
 Genoa (ITGOA),2235.0,2480.0,ITGOA,Silver
 "Georgetown, Guyana",6575.0,6675.0,,Silver
 Gdynia,2650.0,2720.0,,Silver
