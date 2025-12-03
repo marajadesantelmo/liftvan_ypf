@@ -223,90 +223,62 @@ for destino in all_destinations:
             row['silver_20'] = np.nan
             row['silver_40'] = np.nan
         
-        # Calculate differences and best prices for 20' - excluding NaN and 0 values
-        valid_prices_20 = []
-        valid_providers_20 = []
-        
-        if pd.notna(row.get('aires_20')) and row['aires_20'] > 0:
-            valid_prices_20.append(row['aires_20'])
-            valid_providers_20.append(('AiresDS', row['aires_20']))
-        if pd.notna(row.get('fcl_20')) and row['fcl_20'] > 0:
-            valid_prices_20.append(row['fcl_20'])
-            valid_providers_20.append(('EXIM', row['fcl_20']))
-        if pd.notna(row.get('silver_20')) and row['silver_20'] > 0:
-            valid_prices_20.append(row['silver_20'])
-            valid_providers_20.append(('Silver', row['silver_20']))
-        
-        if len(valid_prices_20) >= 2:  # Need at least 2 valid prices for comparison
-            row['best_price_20'] = min(valid_prices_20)
-            row['worst_price_20'] = max(valid_prices_20)
-            row['price_diff_20'] = max(valid_prices_20) - min(valid_prices_20)
-            row['price_diff_20_pct'] = (row['price_diff_20'] / min(valid_prices_20)) * 100
+        # Calculate differences and best prices for 20'
+        prices_20 = [p for p in [row.get('aires_20'), row.get('fcl_20'), row.get('silver_20')] if pd.notna(p) and p > 0]
+        if len(prices_20) >= 2:  # Need at least 2 valid prices for comparison
+            row['best_price_20'] = min(prices_20)
+            row['worst_price_20'] = max(prices_20)
+            row['price_diff_20'] = max(prices_20) - min(prices_20)
+            # Avoid division by zero
+            if min(prices_20) > 0:
+                row['price_diff_20_pct'] = (row['price_diff_20'] / min(prices_20)) * 100
+            else:
+                row['price_diff_20_pct'] = 0
             
             # Find best provider for 20'
-            best_provider_20 = min(valid_providers_20, key=lambda x: x[1])
-            row['best_provider_20'] = best_provider_20[0]
-        else:
-            row['best_price_20'] = np.nan
-            row['worst_price_20'] = np.nan
-            row['price_diff_20'] = np.nan
-            row['price_diff_20_pct'] = np.nan
-            row['best_provider_20'] = None
+            if pd.notna(row.get('aires_20')) and row['aires_20'] > 0 and row['aires_20'] == row['best_price_20']:
+                row['best_provider_20'] = 'AiresDS'
+            elif pd.notna(row.get('fcl_20')) and row['fcl_20'] > 0 and row['fcl_20'] == row['best_price_20']:
+                row['best_provider_20'] = 'EXIM'
+            elif pd.notna(row.get('silver_20')) and row['silver_20'] > 0 and row['silver_20'] == row['best_price_20']:
+                row['best_provider_20'] = 'Silver'
         
-        # Calculate differences and best prices for 40' - excluding NaN and 0 values
-        valid_prices_40 = []
-        valid_providers_40 = []
-        
-        if pd.notna(row.get('aires_40')) and row['aires_40'] > 0:
-            valid_prices_40.append(row['aires_40'])
-            valid_providers_40.append(('AiresDS', row['aires_40']))
-        if pd.notna(row.get('fcl_40')) and row['fcl_40'] > 0:
-            valid_prices_40.append(row['fcl_40'])
-            valid_providers_40.append(('EXIM', row['fcl_40']))
-        if pd.notna(row.get('silver_40')) and row['silver_40'] > 0:
-            valid_prices_40.append(row['silver_40'])
-            valid_providers_40.append(('Silver', row['silver_40']))
-        
-        if len(valid_prices_40) >= 2:  # Need at least 2 valid prices for comparison
-            row['best_price_40'] = min(valid_prices_40)
-            row['worst_price_40'] = max(valid_prices_40)
-            row['price_diff_40'] = max(valid_prices_40) - min(valid_prices_40)
-            row['price_diff_40_pct'] = (row['price_diff_40'] / min(valid_prices_40)) * 100
+        # Calculate differences and best prices for 40'
+        prices_40 = [p for p in [row.get('aires_40'), row.get('fcl_40'), row.get('silver_40')] if pd.notna(p) and p > 0]
+        if len(prices_40) >= 2:  # Need at least 2 valid prices for comparison
+            row['best_price_40'] = min(prices_40)
+            row['worst_price_40'] = max(prices_40)
+            row['price_diff_40'] = max(prices_40) - min(prices_40)
+            # Avoid division by zero
+            if min(prices_40) > 0:
+                row['price_diff_40_pct'] = (row['price_diff_40'] / min(prices_40)) * 100
+            else:
+                row['price_diff_40_pct'] = 0
             
             # Find best provider for 40'
-            best_provider_40 = min(valid_providers_40, key=lambda x: x[1])
-            row['best_provider_40'] = best_provider_40[0]
-        else:
-            row['best_price_40'] = np.nan
-            row['worst_price_40'] = np.nan
-            row['price_diff_40'] = np.nan
-            row['price_diff_40_pct'] = np.nan
-            row['best_provider_40'] = None
+            if pd.notna(row.get('aires_40')) and row['aires_40'] > 0 and row['aires_40'] == row['best_price_40']:
+                row['best_provider_40'] = 'AiresDS'
+            elif pd.notna(row.get('fcl_40')) and row['fcl_40'] > 0 and row['fcl_40'] == row['best_price_40']:
+                row['best_provider_40'] = 'EXIM'
+            elif pd.notna(row.get('silver_40')) and row['silver_40'] > 0 and row['silver_40'] == row['best_price_40']:
+                row['best_provider_40'] = 'Silver'
         
-        # Count valid sources (sources with actual valid data for comparison)
-        valid_sources_20 = len(valid_prices_20)
-        valid_sources_40 = len(valid_prices_40)
-        row['valid_sources_20'] = valid_sources_20
-        row['valid_sources_40'] = valid_sources_40
+        row['sources_available'] = sources_count
+        row['match_type'] = 'exact' if (aires_match == destino and fcl_match == destino and silver_match == destino) else 'fuzzy'
+        comparison_data.append(row)
         
-        # Only add to comparison if there are at least 2 sources with valid data for at least one container type
-        if valid_sources_20 >= 2 or valid_sources_40 >= 2:
-            row['sources_available'] = sources_count
-            row['match_type'] = 'exact' if (aires_match == destino and fcl_match == destino and silver_match == destino) else 'fuzzy'
-            comparison_data.append(row)
+        # Print matching info for fuzzy matches
+        if row['match_type'] == 'fuzzy':
+            matches_info = []
+            if has_aires and aires_match != destino:
+                matches_info.append(f"AiresDS: {aires_match}")
+            if has_fcl and fcl_match != destino:
+                matches_info.append(f"EXIM: {fcl_match}")
+            if has_silver and silver_match != destino:
+                matches_info.append(f"Silver: {silver_match}")
             
-            # Print matching info for fuzzy matches
-            if row['match_type'] == 'fuzzy':
-                matches_info = []
-                if has_aires and aires_match != destino:
-                    matches_info.append(f"AiresDS: {aires_match}")
-                if has_fcl and fcl_match != destino:
-                    matches_info.append(f"EXIM: {fcl_match}")
-                if has_silver and silver_match != destino:
-                    matches_info.append(f"Silver: {silver_match}")
-                
-                if matches_info:
-                    print(f"Fuzzy match found for '{destino}' -> {', '.join(matches_info)}")
+            if matches_info:
+                print(f"Fuzzy match found for '{destino}' -> {', '.join(matches_info)}")
     
     else:  # Destinations with no matches (only in one source)
         source_name = 'AiresDS' if has_aires else ('EXIM' if has_fcl else 'Silver')
